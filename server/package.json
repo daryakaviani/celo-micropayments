@@ -1,0 +1,10 @@
+{
+  "name": "celo-micropayments-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
