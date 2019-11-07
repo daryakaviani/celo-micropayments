@@ -5,6 +5,7 @@ import BuyerDashboard from "../BuyerDashboard/BuyerDashboard";
 import SellerDashboard from "../SellerDashboard/SellerDashboard";
 import Item from "../Item/Item";
 import BuyItem from "../BuyItem/BuyItem"
+import Challenges from "../Challenges/Challenges"
 
 class UserDashboard extends Component {
   constructor(props) {
@@ -37,6 +38,7 @@ class UserDashboard extends Component {
           <SellerDashboard></SellerDashboard>
       
         <BuyItem name="Potatoes" ID="1234"></BuyItem>
+        <Challenges></Challenges>
         </Container>
       </>
     );
