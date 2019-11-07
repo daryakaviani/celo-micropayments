@@ -25,6 +25,11 @@ class BuyerDashboard extends Component {
             Pending transactions
           </h3>
           <table className="itemTable">
+            <thead>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Time</th>
+            </thead>
             <tbody>
               {this.state.pending.map((item) => (
                 <Item name={item.name} cost={item.cost} time={item.time}
@@ -40,6 +45,11 @@ class BuyerDashboard extends Component {
             Completed transactions
           </h3>
           <table className="itemTable">
+            <thead>
+              <th>Name</th>
+              <th>Amount</th>
+              <th>Time</th>
+            </thead>
             <tbody>
               {this.state.completed.map((item) => (
                 <Item name={item.name} cost={item.cost} time={item.time}></Item>

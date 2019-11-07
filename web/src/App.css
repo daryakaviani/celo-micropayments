@@ -24,3 +24,7 @@
 .itemTable {
     margin: 8px 24px;
 }
+
+.itemTable th {
+    padding: 4px 24px;
+}
