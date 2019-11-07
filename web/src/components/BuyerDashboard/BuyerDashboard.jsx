@@ -22,7 +22,7 @@ class BuyerDashboard extends Component {
         <Card.Header>What you're buying</Card.Header>
         <Card.Body>
           <h3>
-            Pending transactions
+            Pending purchases
           </h3>
           <table className="itemTable">
             <thead>
@@ -42,7 +42,7 @@ class BuyerDashboard extends Component {
             </tbody>
           </table>
           <h3>
-            Completed transactions
+            Completed purchases
           </h3>
           <table className="itemTable">
             <thead>
