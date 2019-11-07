@@ -1,21 +1,15 @@
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
-import Item from "../Item/Item";
+import BuyerDashboard from "../BuyerDashboard/BuyerDashboard";
+import SellerDashboard from "../SellerDashboard/SellerDashboard";
 
 class UserDashboard extends Component {
   constructor(props) {
     super(props);
-    var id1 = 0;
-    var id2 = 0;
-    var props = props.location.state;
-    if (props) {
-      id1 = props.userId;
-      id2 = props.userId2;
-    }
+    const locationState = props.location.state;
     this.state = {
-      userId1: id1,
-      userId2: id2
+      userId: locationState ? locationState.userId : 0,
     };
   }
   render() {
@@ -34,13 +28,10 @@ class UserDashboard extends Component {
         </Navbar.Brand>
       </Navbar>
       <h1>
-        Hi this is the user Dashboard for users {this.state.userId1} and
-        {this.state.userId2}
+        Hi this is the user Dashboard for user {this.state.userId}
       </h1>
-      <table class="itemTable">
-        <Item name="Potatoes" cost="5"></Item>
-        <Item name="More Potatoes" cost="15"></Item>
-      </table>
+      <BuyerDashboard></BuyerDashboard>
+      <SellerDashboard></SellerDashboard>
       </>
     );
   }
