@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
 import Navbar from "react-bootstrap/Navbar";
 import Item from "../Item/Item";
+import BuyItem from "../BuyItem/BuyItem"
 
 class UserDashboard extends Component {
   constructor(props) {
@@ -34,14 +35,16 @@ class UserDashboard extends Component {
         </Navbar.Brand>
       </Navbar>
       <h1>
-        Hi this is the user Dashboard for users {this.state.userId1} and
-        {this.state.userId2}
+        Hi this is the user Dashboard for users {this.state.userId1} and {this.state.userId2}
       </h1>
       <table class="itemTable">
         <Item name="Potatoes" cost="5"></Item>
         <Item name="More Potatoes" cost="15"></Item>
       </table>
-      </>
+      <h1>
+        <BuyItem name="Potatoes" ID="1234" ></BuyItem>
+      </h1>
+    </>
     );
   }
 }

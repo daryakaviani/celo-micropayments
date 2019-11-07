@@ -1,32 +1,50 @@
 import React, { Component } from "react";
-import "./Item.css";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import "./BuyItem.css";
 
 class BuyItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name = BuyItem.name
+      //Add state here
+      items: [
+          {proxy: false}
+      ]
     };
   }
+
+  renderProxy = () => {
+      this.proxy = true
+  }
+
   render() {
-    return(
-        <textarea>
+    return( 
+        <>
+        <header>
             Buy Item
-        </textarea>
-        <tr class="userID">
-            <td>{this.props.userID}</td>
-        </tr>
-        <tr class="item">
-            <td>{this.props.name}</td>
-            <td>${Number(this.props.cost).toFixed(2)}</td>
-        </tr>
-        // set the state of the proxy here
-        <button onClick={key="With Proxy"}> 
-            With Proxy
-        </button>
-        <button onClick={key="Without Proxy"}>
-            Without Proxy
-        </button>
+        </header>
+        <Form>
+            <Form.Group controlID="itemToBuy">
+                <Form.Label>Item Name</Form.Label>
+                <Form.Control type="text" placeholder="Potatoes" />
+            </Form.Group>
+            <Form.Group controlID="itemID">
+                <Form.Label>Item ID</Form.Label>
+                <Form.Control type="text" placeholder="1234" />
+            </Form.Group>
+            <Form.Group controlID="proxy">
+                <Form.Label>Proxy</Form.Label>
+                <Form.Control as="select">
+                    <option>With Proxy</option>
+                    <option>Without Proxy</option>
+                </Form.Control>
+            </Form.Group>
+            <Button variant="primary" type="submit">
+                Submit
+            </Button>
+        </Form>
+        </>
     );
   }
 }
