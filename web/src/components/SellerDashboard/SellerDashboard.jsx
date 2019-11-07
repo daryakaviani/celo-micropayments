@@ -7,8 +7,8 @@ class SellerDashboard extends Component {
     super(props);
     this.state = {
       items: [
-        { name: "Potatoes", cost: 5 },
-        { name: "More potatoes", cost: 15 }
+        { name: "Carrots", cost: 3 },
+        { name: "Lots of carrots", cost: 30 }
       ]
     };
   }
