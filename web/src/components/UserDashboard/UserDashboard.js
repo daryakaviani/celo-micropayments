@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+import Navbar from "react-bootstrap/Navbar";
 import Item from "../Item/Item";
 
 class UserDashboard extends Component {
@@ -19,6 +21,18 @@ class UserDashboard extends Component {
   render() {
     return (
       <>
+      <Navbar bg="dark" variant="dark">
+        <Navbar.Brand href="#home">
+          <img
+            alt=""
+            src="../../logo.svg"
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />
+          {" React Bootstrap"}
+        </Navbar.Brand>
+      </Navbar>
       <h1>
         Hi this is the user Dashboard for users {this.state.userId1} and
         {this.state.userId2}
