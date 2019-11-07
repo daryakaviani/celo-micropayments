@@ -6,6 +6,8 @@ import SellerDashboard from "../SellerDashboard/SellerDashboard";
 import Item from "../Item/Item";
 import BuyItem from "../BuyItem/BuyItem"
 import Challenges from "../Challenges/Challenges"
+import {CardGroup } from "react-bootstrap";
+import "./UserDashboard.css";
 
 class UserDashboard extends Component {
   constructor(props) {
@@ -32,13 +34,14 @@ class UserDashboard extends Component {
         </Navbar>
         <Container>
           <h1>
-            Hi this is the user Dashboard for user {this.state.userId}
+            Hi, this is the User Dashboard for User {this.state.userId}
           </h1>
-          <BuyerDashboard></BuyerDashboard>
-          <SellerDashboard></SellerDashboard>
-      
-        <BuyItem name="Potatoes" ID="1234"></BuyItem>
-        <Challenges></Challenges>
+              <BuyerDashboard></BuyerDashboard>
+              <SellerDashboard></SellerDashboard>
+          <CardGroup>
+            <BuyItem name="Potatoes" ID="1234"></BuyItem>
+            <Challenges></Challenges>
+          </CardGroup>
         </Container>
       </>
     );

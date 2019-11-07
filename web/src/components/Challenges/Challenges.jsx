@@ -15,8 +15,9 @@ class Challenges extends Component {
   render() {
     return (
       <Card>
-        <Card.Header>Challenges</Card.Header>
+          <Card.Header>Challenges</Card.Header>
         <Card.Body>
+        <h3>Challenges</h3>
           <Table class="itemTable">
           <thead>
               <th>Name</th>

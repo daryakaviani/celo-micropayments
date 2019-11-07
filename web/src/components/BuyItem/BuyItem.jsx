@@ -21,6 +21,7 @@ class BuyItem extends Component {
         <Card>
             <Card.Header>Buy Item</Card.Header>
             <Card.Body>
+                <h3>Buy Item</h3>
                 <Form>
                     <Form.Group controlID="itemToBuy">
                         <Form.Label>Item Name</Form.Label>
