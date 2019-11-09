@@ -1,20 +1,11 @@
 import React, { Component } from "react";
 import { Button, Table, Card } from "react-bootstrap";
 import Item from "../Item/Item";
+import NewItem from "../NewItem/NewItem";
 
 class BuyerDashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pending: [
-        { name: "Potatoes", cost: 5, time: "Nov 1, 2019" },
-        { name: "More potatoes", cost: 15, time: "Nov 7, 2019" }
-      ],
-      completed: [
-        { name: "A good ol' sack o' potaters", cost: 50, time: "Aug 1, 2019" },
-        { name: "Pototato pot pie", cost: 3, time: "Nov 9, 2018" }
-      ],
-    };
   }
 
   render() {
@@ -27,23 +18,13 @@ class BuyerDashboard extends Component {
           </h3>
           <table className="itemTable">
             <thead>
-              <th>Name</th>
+              <th>ID</th>
               <th>Amount</th>
-              <th>Time</th>
+              <th>Seller</th>
+              <th>Buttons</th>
             </thead>
             <tbody>
-              {this.props.buyingItems.map((item) => (
-                <Item name={item["ID"]} cost={item["price"]}
-                  buttons={[
-                    <Button onClick={() => { }}>I received this</Button>,
-                    <Button onClick={() => { }}>I didn't receive this</Button>
-                  ]}>
-                </Item>
-              ))}
-
-              {/* {this.props.buyingItems.map((item) => {
-                <Item name={item["ID"]} cost={item["price"]} />
-              })} */}
+              {this.props.buyingItems.map((item) => <NewItem type="buying" item={item}></NewItem>)}
             </tbody>
           </table>
           <h3>
@@ -51,14 +32,12 @@ class BuyerDashboard extends Component {
           </h3>
           <table className="itemTable">
             <thead>
-              <th>Name</th>
+              <th>ID</th>
               <th>Amount</th>
-              <th>Time</th>
+              <th>Seller</th>
             </thead>
             <tbody>
-              {this.state.completed.map((item) => (
-                <Item name={item.name} cost={item.cost} time={item.time}></Item>
-              ))}
+              {this.props.boughtItems.map((item) => (<NewItem type="bought" item={item} />))}
             </tbody>
           </table>
         </Card.Body>

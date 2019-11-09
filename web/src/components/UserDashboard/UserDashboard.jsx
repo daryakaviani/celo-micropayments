@@ -61,18 +61,17 @@ class UserDashboard extends Component {
         this.setState({ challenges: [...this.state.challenges, currentItem] });
       }
     }
-    // We need to add to Completed
   }
 
   addToSold = (currentItem) => {
-    if (currentItem["sellerAddress"] == this.state.account && currentItem["receieved"] == true) {
+    if (currentItem["sellerAddress"] == this.state.account && currentItem["received"] == true) {
       return true;
     }
     return false;
   }
 
   addToBought = (currentItem) => {
-    if (currentItem["buyerAddress"] == this.state.account && currentItem["receieved"] == true) {
+    if (currentItem["buyerAddress"] == this.state.account && currentItem["received"] == true) {
       return true;
     }
     return false;

@@ -5,16 +5,13 @@ import "./Item.css";
 /**
  * Item is used for displaying transactions in the interface.
  * @param name    Name of the item being bought
- * @parma time    Time the item was bought
+ * @param time    Time the item was bought
  * @param buttons A map of button name => action
  * @param extraFields Any extra table fields that should be included in this component
  */
 class Item extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // TODO: State?
-    };
   }
   render() {
     return (
