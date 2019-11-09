@@ -31,7 +31,7 @@ class UserDashboard extends Component {
     var sellingList = await contract.methods.getSellingItems(this.state.account).call();
     this.setState({ sellingList });
 
-    var itemsLength = await contract.methods.nextItemId().call();
+    var itemsLength = await contract.methods.nextItemId;
     this.setState({ itemsLength })
 
     // We are setting the items in the contract's buyingList to our pendingPurchases
@@ -48,17 +48,41 @@ class UserDashboard extends Component {
       this.setState({ currentInventory: [...this.state.currentInventory, nextItem] });
     }
 
-    // We need to add to CompletedPurcheses so money redeeming will be possible.
+    // This function adds an item to either the already sold, already bought, or currently challenged
     for (var i = 0; i < this.state.itemsLength; i++) {
       var currentItem = await contract.methods.items(i).call();
-      if (currentItem["sellerAddress"] == this.state.account) {
-        // The following code doesn't always work, we need to add seperate time-based functions that are booleans that say if the time has passed
-        if (currentItem["received"] == true || currentItem["challengeWinner"] == currentItem["sellerAddress"]) {
-          this.setState({ completedPurchases: [...this.state.completedPurchases, currentItem] });
-        }
+      if (this.addToSold(currentItem)) {
+        this.setState({ completedSales: [...this.state.completedSales, currentItem] });
+      }
+      if (this.addToBought(currentItem)) {
+        this.setState({ completedPurchases: [...this.state.completedPurchases, currentItem] });
+      }
+      if (this.addToChallenges(currentItem)) {
+        this.setState({ challenges: [...this.state.challenges, currentItem] });
       }
     }
     // We need to add to Completed
+  }
+
+  addToSold = (currentItem) => {
+    if (currentItem["sellerAddress"] == this.state.account && currentItem["receieved"] == true) {
+      return true;
+    }
+    return false;
+  }
+
+  addToBought = (currentItem) => {
+    if (currentItem["buyerAddress"] == this.state.account && currentItem["receieved"] == true) {
+      return true;
+    }
+    return false;
+  }
+
+  addToChallenges = (currentItem) => {
+    if (currentItem["mediatorAddress"] == this.state.account) {
+      return true;
+    }
+    return false;
   }
 
   constructor(props) {
@@ -66,11 +90,12 @@ class UserDashboard extends Component {
     this.state = {
       userId: 0,
       username: "",
-      account: "yolo",
+      account: "",
       pendingPurchaces: [],
       completedPurchases: [],
       currentInventory: [],
       completedSales: [],
+      challenges: [],
       buyItemName: "",
       buyItemId: -1,
       withProxy: false,
@@ -83,31 +108,20 @@ class UserDashboard extends Component {
 
   render() {
     return (
-      <>
-        <Navbar bg="dark" variant="dark">
-          <Navbar.Brand href="#home">
-            <img
-              alt=""
-              src="../../logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />
-            {" React Bootstrap"}
-          </Navbar.Brand>
-        </Navbar>
+      <div>
+        <br />
         <Container>
           <h1>
             Hi, this is the User Dashboard for {this.state.account}
           </h1>
-          <BuyerDashboard buyingItems={this.state.pendingPurchaces}></BuyerDashboard>
-          <SellerDashboard sellingItems={this.state.currentInventory}></SellerDashboard>
+          <BuyerDashboard buyingItems={this.state.pendingPurchaces} boughtItems={this.state.completedPurchases}></BuyerDashboard>
+          <SellerDashboard sellingItems={this.state.currentInventory} soldItems={this.state.completedSales}></SellerDashboard>
           <CardGroup>
             <BuyItem name="Potatoes" ID="1234"></BuyItem>
-            <Challenges></Challenges>
+            <Challenges challenges={this.state.challenges}></Challenges>
           </CardGroup>
         </Container>
-      </>
+      </div>
     );
   }
 }
