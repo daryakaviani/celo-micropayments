@@ -1,3 +1,33 @@
+/*
+: l
+0: "1"
+1: "0xCCe64bAe8A291ca6dF731F1C62e85C28D7881911"
+2: "0x0000000000000000000000000000000000000000"
+3: "200"
+4: false
+5: "0x0000000000000000000000000000000000000000"
+6: "0"
+7: "0"
+8: "0"
+9: false
+10: false
+11: false
+12: "0x0000000000000000000000000000000000000000"
+ID: "1"
+buyTime: "0"
+buyerAddress: "0x0000000000000000000000000000000000000000"
+challengeNonreceived: false
+challengeTime: "0"
+challengeWinner: "0x0000000000000000000000000000000000000000"
+claimNonreceived: false
+mediatorAddress: "0x0000000000000000000000000000000000000000"
+price: "200"
+received: false
+sellerAcceptNonReceived: false
+sellerAcceptTime: "0"
+sellerAddress: "0xCCe64bAe8A291ca6dF731F1C62e85C28D7881911"
+*/
+
 import React, { Component } from "react";
 import { Button, Badge, Card } from "react-bootstrap";
 import Item from "../Item/Item";
@@ -8,16 +38,16 @@ const statusBadges = {
 }
 
 function SellerItem(props) {
-  const extraFields = [ props.item.to || "No customer" ]
+  // const extraFields = [props.item.to || "No customer"]
   const buttons = []
-  if (props.item.status) extraFields.push(statusBadges[props.item.status])
-  if (props.hasProof) buttons.push(<Button>Proof of Delivery</Button>)
+  // if (props.item.status) extraFields.push(statusBadges[props.item.status])
+  // if (props.hasProof) buttons.push(<Button>Proof of Delivery</Button>)
 
-  return <Item name={props.item.name} cost={props.item.cost}
-               time={props.item.time} extraFields={extraFields}
-               buttons={buttons}
-         ></Item>
+  return <Item name={props.id} cost={props.cost}
+    buttons={buttons}
+  ></Item>
 }
+
 
 class SellerDashboard extends Component {
   constructor(props) {
@@ -48,7 +78,7 @@ class SellerDashboard extends Component {
               <th>Time</th>
             </thead>
             <tbody>
-              {this.state.selling.map((item) => <SellerItem item={item} hasProof />)}
+              {this.props.sellingItems.map((item) => <SellerItem id={item["ID"]} cost={item["price"]} />)}
             </tbody>
           </table>
           <h3>Completed Sales</h3>

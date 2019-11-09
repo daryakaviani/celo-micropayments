@@ -14,7 +14,7 @@ class LandingPage extends Component {
 
   renderUserDashboard = () => { //Go from LandingPage to UserDashboard
     this.props.history.push({
-      pathname: "/UserDashboard",
+      pathname: "/Login",
       state: {
         userId: 1,
         userId2: 2
@@ -37,7 +37,7 @@ class LandingPage extends Component {
             {" React Bootstrap"}
           </Navbar.Brand>
         </Navbar>
-        <h1 className="heading">
+        <h1 className="heading center">
           Hello {this.state.name} and {this.state.name2}
         </h1>
         <Button onClick={this.renderUserDashboard}> Hello </Button>

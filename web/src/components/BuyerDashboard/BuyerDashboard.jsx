@@ -16,6 +16,7 @@ class BuyerDashboard extends Component {
       ],
     };
   }
+
   render() {
     return (
       <Card>
@@ -31,14 +32,18 @@ class BuyerDashboard extends Component {
               <th>Time</th>
             </thead>
             <tbody>
-              {this.state.pending.map((item) => (
-                <Item name={item.name} cost={item.cost} time={item.time}
-                      buttons={[
-                        <Button onClick={() => {}}>I received this</Button>,
-                        <Button onClick={() => {}}>I didn't receive this</Button>
-                      ]}>
+              {this.props.buyingItems.map((item) => (
+                <Item name={item["ID"]} cost={item["price"]}
+                  buttons={[
+                    <Button onClick={() => { }}>I received this</Button>,
+                    <Button onClick={() => { }}>I didn't receive this</Button>
+                  ]}>
                 </Item>
               ))}
+
+              {/* {this.props.buyingItems.map((item) => {
+                <Item name={item["ID"]} cost={item["price"]} />
+              })} */}
             </tbody>
           </table>
           <h3>
