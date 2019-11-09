@@ -17,34 +17,48 @@ class UserDashboard extends Component {
     var ABI = CELO_ABI;
     var address = CELO_ADDRESS;
 
+    // We are saving the web3, the current account, and the contract for later use
     const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
+    this.setState({ web3 })
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
     const contract = new web3.eth.Contract(ABI, address);
     this.setState({ contract });
-    console.log(contract);
 
     // Getting the buyinglist and the selling list
     var buyingList = await contract.methods.getBuyingItems(this.state.account).call();
     this.setState({ buyingList });
     var sellingList = await contract.methods.getSellingItems(this.state.account).call();
     this.setState({ sellingList });
-    console.log(sellingList);
 
+    var itemsLength = await contract.methods.nextItemId().call();
+    this.setState({ itemsLength })
+
+    // We are setting the items in the contract's buyingList to our pendingPurchases
     for (var i = 0; i < buyingList.length; i++) {
       var nextItemID = buyingList[i];
       var nextItem = await contract.methods.items(parseInt(nextItemID, 10)).call();
       this.setState({ pendingPurchaces: [...this.state.pendingPurchaces, nextItem] });
     }
 
+    // We are setting the items in the contract's sellingList to our currentInventory
     for (var i = 0; i < sellingList.length; i++) {
       var nextItemID = sellingList[i];
       var nextItem = await contract.methods.items(parseInt(nextItemID, 10)).call();
       this.setState({ currentInventory: [...this.state.currentInventory, nextItem] });
     }
 
-    console.log(this.state.currentInventory);
-    console.log(this.state.pendingPurchaces);
+    // We need to add to CompletedPurcheses so money redeeming will be possible.
+    for (var i = 0; i < this.state.itemsLength; i++) {
+      var currentItem = await contract.methods.items(i).call();
+      if (currentItem["sellerAddress"] == this.state.account) {
+        // The following code doesn't always work, we need to add seperate time-based functions that are booleans that say if the time has passed
+        if (currentItem["received"] == true || currentItem["challengeWinner"] == currentItem["sellerAddress"]) {
+          this.setState({ completedPurchases: [...this.state.completedPurchases, currentItem] });
+        }
+      }
+    }
+    // We need to add to Completed
   }
 
   constructor(props) {
