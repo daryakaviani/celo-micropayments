@@ -31,21 +31,25 @@ class UserDashboard extends Component {
     var sellingList = await contract.methods.getSellingItems(this.state.account).call();
     this.setState({ sellingList });
 
-    var itemsLength = await contract.methods.nextItemId;
+    var itemsLength = await contract.methods.nextItemID().call();
     this.setState({ itemsLength })
-
     // We are setting the items in the contract's buyingList to our pendingPurchases
     for (var i = 0; i < buyingList.length; i++) {
       var nextItemID = buyingList[i];
       var nextItem = await contract.methods.items(parseInt(nextItemID, 10)).call();
-      this.setState({ pendingPurchaces: [...this.state.pendingPurchaces, nextItem] });
+      if (nextItem["received"] == false) {
+        this.setState({ pendingPurchaces: [...this.state.pendingPurchaces, nextItem] });
+      }
     }
 
     // We are setting the items in the contract's sellingList to our currentInventory
     for (var i = 0; i < sellingList.length; i++) {
       var nextItemID = sellingList[i];
       var nextItem = await contract.methods.items(parseInt(nextItemID, 10)).call();
-      this.setState({ currentInventory: [...this.state.currentInventory, nextItem] });
+      console.log(nextItem);
+      if (nextItem["received"] == false) {
+        this.setState({ currentInventory: [...this.state.currentInventory, nextItem] });
+      }
     }
 
     // This function adds an item to either the already sold, already bought, or currently challenged
@@ -78,7 +82,8 @@ class UserDashboard extends Component {
   }
 
   addToChallenges = (currentItem) => {
-    if (currentItem["mediatorAddress"] == this.state.account) {
+    console.log(currentItem);
+    if (currentItem["mediatorAddress"] == this.state.account && currentItem["received"] == false) {
       return true;
     }
     return false;
@@ -113,11 +118,11 @@ class UserDashboard extends Component {
           <h1>
             Hi, this is the User Dashboard for {this.state.account}
           </h1>
-          <BuyerDashboard buyingItems={this.state.pendingPurchaces} boughtItems={this.state.completedPurchases}></BuyerDashboard>
-          <SellerDashboard sellingItems={this.state.currentInventory} soldItems={this.state.completedSales}></SellerDashboard>
+          <BuyerDashboard account={this.state.account} contract={this.state.contract} buyingItems={this.state.pendingPurchaces} boughtItems={this.state.completedPurchases}></BuyerDashboard>
+          <SellerDashboard account={this.state.account} contract={this.state.contract} sellingItems={this.state.currentInventory} soldItems={this.state.completedSales}></SellerDashboard>
           <CardGroup>
             <BuyItem name="Potatoes" ID="1234"></BuyItem>
-            <Challenges challenges={this.state.challenges}></Challenges>
+            <Challenges account={this.state.account} contract={this.state.contract} challenges={this.state.challenges}></Challenges>
           </CardGroup>
         </Container>
       </div>

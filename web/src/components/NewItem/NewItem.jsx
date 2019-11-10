@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import "./NewItem.css";
+import { Button } from "react-bootstrap"
 
 /*
 ID: "1"
@@ -37,6 +38,7 @@ class NewItem extends Component {
                 <td>
                     {this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged"}
                 </td>
+                {this.props.item["claimNonrecieved"] ? <td><Button>Challenge</Button></td> : null}
             </tr>)
     }
 
@@ -84,7 +86,9 @@ class NewItem extends Component {
                     {this.props.item["sellerAddress"]}
                 </td>
                 <td>
-                    Buttons will be here
+                    <Button>Challenge</Button>
+                    &nbsp;
+                    <Button>Recieved</Button>
                 </td>
             </tr>
         )
