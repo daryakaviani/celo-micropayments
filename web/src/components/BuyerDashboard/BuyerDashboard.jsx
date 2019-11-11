@@ -21,7 +21,8 @@ class BuyerDashboard extends Component {
               <th>ID</th>
               <th>Amount</th>
               <th>Seller</th>
-              <th>Buttons</th>
+              <th>Expected Arrival</th>
+              <th>Actions</th>
             </thead>
             <tbody>
               {this.props.buyingItems.map((item) => <NewItem type="buying" item={item}></NewItem>)}
@@ -35,6 +36,7 @@ class BuyerDashboard extends Component {
               <th>ID</th>
               <th>Amount</th>
               <th>Seller</th>
+              <th>Bought Time</th>
             </thead>
             <tbody>
               {this.props.boughtItems.map((item) => (<NewItem type="bought" item={item} />))}

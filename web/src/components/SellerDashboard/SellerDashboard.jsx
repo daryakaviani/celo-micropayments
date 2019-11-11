@@ -21,6 +21,7 @@ class SellerDashboard extends Component {
               <th>ID</th>
               <th>Price</th>
               <th>Recipient</th>
+              <th>Expected Deadline</th>
               <th>Challenge Status</th>
             </thead>
             <tbody>
@@ -33,6 +34,7 @@ class SellerDashboard extends Component {
               <th>Name</th>
               <th>Amount</th>
               <th>Recipient</th>
+              <th>Bought Time</th>
             </thead>
             <tbody>
               {this.props.soldItems.map((item) => <NewItem item={item} type="sold" />)}

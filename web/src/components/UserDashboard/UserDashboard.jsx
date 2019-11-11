@@ -10,6 +10,7 @@ import Challenges from "../Challenges/Challenges"
 import { CardGroup } from "react-bootstrap";
 import "./UserDashboard.css";
 import { CELO_ABI, CELO_ADDRESS } from "../../config";
+var moment = require('moment');
 
 class UserDashboard extends Component {
 
@@ -33,6 +34,8 @@ class UserDashboard extends Component {
 
     var itemsLength = await contract.methods.nextItemID().call();
     this.setState({ itemsLength })
+
+
     // We are setting the items in the contract's buyingList to our pendingPurchases
     for (var i = 0; i < buyingList.length; i++) {
       var nextItemID = buyingList[i];
@@ -46,7 +49,6 @@ class UserDashboard extends Component {
     for (var i = 0; i < sellingList.length; i++) {
       var nextItemID = sellingList[i];
       var nextItem = await contract.methods.items(parseInt(nextItemID, 10)).call();
-      console.log(nextItem);
       if (nextItem["received"] == false) {
         this.setState({ currentInventory: [...this.state.currentInventory, nextItem] });
       }
