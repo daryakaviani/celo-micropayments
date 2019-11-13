@@ -10,10 +10,12 @@ class SellerDashboard extends Component {
     super(props);
   }
 
+  async
+
   render() {
     return (
       <Card>
-        <Card.Header>What you're selling</Card.Header>
+        <Card.Header>Seller Dashboard</Card.Header>
         <Card.Body>
           <h3>Current Inventory</h3>
           <table class="itemTable">
@@ -25,7 +27,7 @@ class SellerDashboard extends Component {
               <th>Challenge Status</th>
             </thead>
             <tbody>
-              {this.props.sellingItems.map((item) => <NewItem item={item} type="selling" />)}
+              {this.props.sellingItems.map((item) => <NewItem account={this.props.account} contract={this.props.contract} item={item} type="selling" />)}
             </tbody>
           </table>
           <h3>Completed Sales</h3>
@@ -37,7 +39,7 @@ class SellerDashboard extends Component {
               <th>Bought Time</th>
             </thead>
             <tbody>
-              {this.props.soldItems.map((item) => <NewItem item={item} type="sold" />)}
+              {this.props.soldItems.map((item) => <NewItem account={this.props.account} contract={this.props.contract} item={item} type="sold" />)}
             </tbody>
           </table>
         </Card.Body>

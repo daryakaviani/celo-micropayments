@@ -84,7 +84,6 @@ class UserDashboard extends Component {
   }
 
   addToChallenges = (currentItem) => {
-    console.log(currentItem);
     if (currentItem["mediatorAddress"] == this.state.account && currentItem["received"] == false) {
       return true;
     }
@@ -123,7 +122,7 @@ class UserDashboard extends Component {
           <BuyerDashboard account={this.state.account} contract={this.state.contract} buyingItems={this.state.pendingPurchaces} boughtItems={this.state.completedPurchases}></BuyerDashboard>
           <SellerDashboard account={this.state.account} contract={this.state.contract} sellingItems={this.state.currentInventory} soldItems={this.state.completedSales}></SellerDashboard>
           <CardGroup>
-            <BuyItem name="Potatoes" ID="1234"></BuyItem>
+            <BuyItem account={this.state.account} contract={this.state.contract}></BuyItem>
             <Challenges account={this.state.account} contract={this.state.contract} challenges={this.state.challenges}></Challenges>
           </CardGroup>
         </Container>

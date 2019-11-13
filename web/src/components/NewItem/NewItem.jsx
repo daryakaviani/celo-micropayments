@@ -24,6 +24,16 @@ class NewItem extends Component {
         super(props);
     }
 
+    handleClaimNonreceived = (event) => {
+        event.preventDefault();
+        this.props.contract.methods.buyerClaimsNonReceived(this.props.item.ID).send({ from: this.props.account }).then(function (reciept) { console.log(reciept) });
+    }
+
+    handleRecieved = (event) => {
+        event.preventDefault();
+        this.props.contract.methods.buyerConfirmsReceived(this.props.item.ID).send({ from: this.props.account }).then(function (reciept) { console.log(reciept) });
+    }
+
     sellingCode = () => {
         var deadline = moment.unix(this.props.item["buyTime"]);
         deadline.add(2, "weeks");
@@ -39,10 +49,10 @@ class NewItem extends Component {
                     {this.props.item["buyerAddress"]}
                 </td>
                 <td>
-                    {deadline.format("ll")}
+                    {(this.props.item["buyerAddress"] != "0x0000000000000000000000000000000000000000") ? deadline.format("ll") : null}
                 </td>
                 <td>
-                    {this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged"}
+                    {(this.props.item["buyerAddress"] != "0x0000000000000000000000000000000000000000") ? (this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged") : null}
                 </td>
                 {this.props.item["claimNonrecieved"] ? <td><Button>Challenge</Button></td> : null}
             </tr>)
@@ -105,9 +115,9 @@ class NewItem extends Component {
                     {deadline.format("ll")}
                 </td>
                 <td>
-                    <Button>Claim Nonrecieved</Button>
+                    <Button onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
                     &nbsp;
-                    <Button>Recieved</Button>
+                    <Button onClick={this.handleRecieved} >Recieved</Button>
                 </td>
             </tr>
         )
