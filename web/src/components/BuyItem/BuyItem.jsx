@@ -7,7 +7,7 @@ class BuyItem extends Component {
         super(props);
         this.state = {
             value: "",
-            proxy: "With Proxy"
+            proxy: "With Mediator"
         };
     }
 
@@ -31,7 +31,7 @@ class BuyItem extends Component {
         var account = this.props.account;
         this.getItemValue(this.state.value).then(function (result, result2) {
             console.log(value, proxy, result);
-            if (proxy == "With Proxy") {
+            if (proxy == "With Mediator") {
                 contract.methods.buyItem(value, account).send({ from: account, value: parseInt(result) }).then(function (receipt) {
                     console.log(receipt);
                 })
@@ -63,10 +63,10 @@ class BuyItem extends Component {
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
                         <Form.Group controlID="proxy">
-                            <Form.Label>Proxy</Form.Label>
+                            <Form.Label>Mediator</Form.Label>
                             <Form.Control as="select" onChange={this.handleProxyChange}>
-                                <option>With Proxy</option>
-                                <option>Without Proxy</option>
+                                <option>With Mediator</option>
+                                <option>Without Mediator</option>
                             </Form.Control>
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={this.handleBuyItem}>
