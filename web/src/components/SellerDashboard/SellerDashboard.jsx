@@ -1,22 +1,44 @@
 
 
 import React, { Component } from "react";
-import { Button, Badge, Card } from "react-bootstrap";
+import { Button, Badge, Card, Form } from "react-bootstrap";
 import Item from "../Item/Item";
 import NewItem from "../NewItem/NewItem";
 
 class SellerDashboard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: "",
+    };
   }
 
-  async
+  handleMakeItem = (event) => {
+    event.preventDefault();
+    var priceNumber = parseInt(this.state.value);
+    this.props.contract.methods.createItem(priceNumber).send({ from: this.props.account }).then(function (receipt) { console.log(receipt) });
+  }
+
+  handleMakeValueChange = (event) => {
+    this.setState({ value: event.target.value });
+  }
 
   render() {
     return (
       <Card>
         <Card.Header>Seller Dashboard</Card.Header>
         <Card.Body>
+          <h2>Make Item</h2>
+          <Form>
+            <Form.Group controlID="itemID">
+              <Form.Label>Item Price</Form.Label>
+              <Form.Control type="text" placeholder="" onChange={this.handleMakeValueChange} />
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={this.handleMakeItem}>
+              Submit
+                </Button>
+          </Form>
+          <hr></hr>
           <h3>Current Inventory</h3>
           <table class="itemTable">
             <thead>

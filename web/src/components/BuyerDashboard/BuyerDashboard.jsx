@@ -6,21 +6,7 @@ import NewItem from "../NewItem/NewItem";
 class BuyerDashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: "",
-    };
 
-    // this.handleMakeItem = this.handleMakeItem.bind(this);
-  }
-
-  handleMakeItem = (event) => {
-    event.preventDefault();
-    var priceNumber = parseInt(this.state.value);
-    this.props.contract.methods.createItem(priceNumber).send({ from: this.props.account }).then(function (receipt) { console.log(receipt) });
-  }
-
-  handleMakeValueChange = (event) => {
-    this.setState({ value: event.target.value });
   }
 
   render() {
@@ -28,17 +14,7 @@ class BuyerDashboard extends Component {
       <Card>
         <Card.Header>Buyer Dashboard</Card.Header>
         <Card.Body>
-          <h2>Make Item</h2>
-          <Form>
-            <Form.Group controlID="itemID">
-              <Form.Label>Item Price</Form.Label>
-              <Form.Control type="text" placeholder="" onChange={this.handleMakeValueChange} />
-            </Form.Group>
-            <Button variant="primary" type="submit" onClick={this.handleMakeItem}>
-              Submit
-                </Button>
-          </Form>
-          <hr></hr>
+
           <h3>
             Pending purchases
           </h3>

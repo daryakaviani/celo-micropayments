@@ -7,15 +7,15 @@ class Challenges extends Component {
   }
 
   settle(id, favorSeller) {
-    this.props.contract.methods.mediatorSettlesChallenge(id, favorSeller).send({ from: this.props.account }).then(function(receipt) { console.log(receipt) });
+    this.props.contract.methods.mediatorSettlesChallenge(id, favorSeller).send({ from: this.props.account }).then(function (receipt) { console.log(receipt) });
   }
 
   render() {
     return (
       <Card>
-        <Card.Header>Challenges</Card.Header>
+        <Card.Header>Mediator Dashboard</Card.Header>
         <Card.Body>
-          <h3>Challenges</h3>
+          <h3>Mediator Dashboard</h3>
           <Table class="itemTable">
             <thead>
               <th>ID</th>
