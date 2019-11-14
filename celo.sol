@@ -4,7 +4,7 @@ contract CeloContract {
 	uint public nextItemID = 0;
 	uint public countUser = 0;
     mapping(address => User) users;
-    mapping(uint => address) userInts;
+    mapping(int => address) userInts;
     mapping(uint => Item) public items;
     //amount of time after seller accepts the sale that the buyer cannot challenge that they have not received the item
 	uint constant public waitPeriod = 30 seconds;
@@ -72,13 +72,17 @@ contract CeloContract {
     }
 
     //check whether access to this function must be constricted
-    function buyItem(uint id, uint randomUser) public payable {
+    function buyItem(uint id, int randomUser) public payable {
         require(items[id].buyerAddress == address(0));
         require(id < nextItemID);
         require(msg.value == items[id].price); //what happens if someone calls this with a nonexistent id?
         items[id].buyerAddress = msg.sender;
         users[msg.sender].buyingItems.push(id);
-        items[id].mediatorAddress = userInts[randomUser];
+        if (randomUser == -1) {
+            items[id].mediatorAddress = address(0);
+        } else {
+            items[id].mediatorAddress = userInts[randomUser];
+        }
         items[id].buyTime = now;
     }
 
