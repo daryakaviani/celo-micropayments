@@ -1,4 +1,4 @@
-export const CELO_ADDRESS = "0xC274cD8856c468B5B8a4DeBC7032d2DDB2507Fd3"
+export const CELO_ADDRESS = "0xaf5059A138356710031219B0655B8af2D1714491";
 export const CELO_ABI = [
     {
         "constant": false,
@@ -54,9 +54,9 @@ export const CELO_ABI = [
                 "type": "uint256"
             },
             {
-                "internalType": "address",
-                "name": "mediator",
-                "type": "address"
+                "internalType": "uint256",
+                "name": "randomUser",
+                "type": "uint256"
             }
         ],
         "name": "buyItem",
@@ -167,6 +167,36 @@ export const CELO_ABI = [
         "outputs": [],
         "payable": false,
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "challengePeriod",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "countUser",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -309,6 +339,36 @@ export const CELO_ABI = [
     },
     {
         "constant": true,
+        "inputs": [],
+        "name": "sellerAcceptPeriod",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "sellerChallengePeriod",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
         "inputs": [
             {
                 "internalType": "address",
@@ -322,6 +382,21 @@ export const CELO_ABI = [
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [],
+        "name": "waitPeriod",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
             }
         ],
         "payable": false,
