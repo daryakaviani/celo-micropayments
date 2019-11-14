@@ -2,7 +2,7 @@ pragma solidity 0.5.11;
 
 contract CeloContract {
 	uint public nextItemID = 0;
-	uint public countUser = 0;
+	int public countUser = 0;
     mapping(address => User) users;
     mapping(int => address) userInts;
     mapping(uint => Item) public items;
