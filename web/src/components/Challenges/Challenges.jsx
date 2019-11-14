@@ -7,7 +7,14 @@ class Challenges extends Component {
   }
 
   settle(id, favorSeller) {
-    this.props.contract.methods.mediatorSettlesChallenge(id, favorSeller).send({ from: this.props.account }).then(function (receipt) { console.log(receipt) });
+    this.props.settle(id, favorSeller).then(function (receipt) { console.log(receipt) });
+  }
+
+  handleSettler(id, favorSeller) {
+    return event => {
+      event.preventDefault();
+      this.settle(id, favorSeller);
+    }
   }
 
   render() {
@@ -16,17 +23,19 @@ class Challenges extends Component {
         <Card.Header>Mediator Dashboard</Card.Header>
         <Card.Body>
           <h3>Mediator Dashboard</h3>
-          <Table class="itemTable">
+          <Table className="itemTable">
             <thead>
-              <th>ID</th>
-              <th>Choose Winner</th>
+              <tr>
+                <th>ID</th>
+                <th>Choose Winner</th>
+              </tr>
             </thead>
             <tbody>
               {this.props.challenges.map((item) => (
                 <tr>
                   <td>{item["ID"]}</td>
-                  <td><Button onClick={() => this.settle(item.ID, false)}>Buyer</Button> &nbsp;
-                  <Button onClick={() => this.settle(item.ID, true)}>Seller</Button></td>
+                  <td><Button onClick={this.handleSettler(item.ID, false)}>Buyer</Button> &nbsp;
+                  <Button onClick={this.handleSettler(item.ID, true)}>Seller</Button></td>
                 </tr>
               ))}
             </tbody>

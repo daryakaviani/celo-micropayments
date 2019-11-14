@@ -15,7 +15,7 @@ mediatorAddress: "0x0000000000000000000000000000000000000000"
 price: "200"
 received: false
 sellerAcceptNonReceived: false
-sellerAcceptTime: "0" <-- Time 
+sellerAcceptTime: "0" <-- Time
 sellerAddress: "0xCCe64bAe8A291ca6dF731F1C62e85C28D7881911"
 */
 
@@ -26,12 +26,17 @@ class NewItem extends Component {
 
     handleClaimNonreceived = (event) => {
         event.preventDefault();
-        this.props.contract.methods.buyerClaimsNonReceived(this.props.item.ID).send({ from: this.props.account }).then(function (reciept) { console.log(reciept) });
+        this.props.setClaimReceivedStatus(false).then(() => alert('submitted!'));
     }
 
     handleRecieved = (event) => {
         event.preventDefault();
-        this.props.contract.methods.buyerConfirmsReceived(this.props.item.ID).send({ from: this.props.account }).then(function (reciept) { console.log(reciept) });
+        this.props.setClaimReceivedStatus(true).then(() => alert('submitted!'));
+    }
+
+    handleSellerChallenge = (event) => {
+        event.preventDefault();
+        this.props.sellerChallenge().then(() => alert('submitted!'));
     }
 
     sellingCode = () => {
@@ -46,15 +51,15 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    {this.props.item["buyerAddress"]}
+                    {this.props.item.hasBuyer ? this.props.item["buyerAddress"] : 'None yet'}
                 </td>
                 <td>
-                    {(this.props.item["buyerAddress"] != "0x0000000000000000000000000000000000000000") ? deadline.format("ll") : null}
+                    {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td>
-                    {(this.props.item["buyerAddress"] != "0x0000000000000000000000000000000000000000") ? (this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ? (this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged") : null}
                 </td>
-                {this.props.item["claimNonrecieved"] ? <td><Button>Challenge</Button></td> : null}
+                {this.props.item["claimNonrecieved"] ? <td><Button onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
             </tr>)
     }
 
@@ -124,16 +129,16 @@ class NewItem extends Component {
     }
 
     render() {
-        if (this.props.type == "selling") {
+        if (this.props.type === "selling") {
             return this.sellingCode();
         }
-        if (this.props.type == "sold") {
+        if (this.props.type === "sold") {
             return this.soldCode();
         }
-        if (this.props.type == "buying") {
+        if (this.props.type === "buying") {
             return this.buyingCode();
         }
-        if (this.props.type == "bought") {
+        if (this.props.type === "bought") {
             return this.boughtCode();
         }
     }
