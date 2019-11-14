@@ -25,18 +25,21 @@ class BuyItem extends Component {
 
     handleBuyItem = (event) => {
         event.preventDefault();
-        var value = this.state.value;
+        var itemID = this.state.value;
         var proxy = this.state.proxy;
         var contract = this.props.contract;
         var account = this.props.account;
-        this.getItemValue(this.state.value).then(function (result, result2) {
-            console.log(value, proxy, result);
+        this.getItemValue(this.state.value).then(function (result) {
+            console.log(itemID, proxy, result);
             if (proxy == "With Proxy") {
-                contract.methods.buyItem(value, account).send({ from: account, value: parseInt(result) }).then(function (receipt) {
-                    console.log(receipt);
+                contract.methods.countUser().call().then(function (userCount) {
+                    var randomValue = Math.floor(Math.random() * userCount);
+                    contract.methods.buyItem(itemID, randomValue).send({ from: account, value: parseInt(result) }).then(function (receipt) {
+                        console.log(receipt);
+                    })
                 })
             } else {
-                contract.methods.buyItem(value, "0x0000000000000000000000000000000000000000").send({ from: account, value: parseInt(result) }).then(function (receipt) {
+                contract.methods.buyItem(itemID, -1).send({ from: account, value: parseInt(result) }).then(function (receipt) {
                     console.log(receipt);
                 })
             }
