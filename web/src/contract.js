@@ -98,10 +98,14 @@ export default class CeloContract {
         const item = await this.itemById(id);
         if (proxy) {
             console.log(item.price)
-            return await this.methods.buyItem(id, this.address)
+
+            var userCount = await this.methods.countUser().call();
+            var randomValue = Math.floor(Math.random() * userCount);
+
+            return await this.methods.buyItem(id, randomValue)
                 .send({ from: this.address, value: item.price })
         } else {
-            return await this.methods.buyItem(id, ZERO_ADDRESS)
+            return await this.methods.buyItem(id, -1)
                 .send({ from: this.address, value: item.price })
         }
     }
