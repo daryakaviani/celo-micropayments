@@ -39,19 +39,20 @@ contract CeloContract {
    }
 
    function createUser() public {
-        require(!userExists[msg.sender], 'You already exist!');
-        // USE SAFEMATH
-        User memory u = User({
-            buyingItems: new uint[](0),
-            sellingItems: new uint[](0)
-        });
-       users[msg.sender] = u;
-       userExists[msg.sender] = true;
-       userInts[countUser] = msg.sender;
-       countUser += 1;
+        if(!userExists[msg.sender]){
+                User memory u = User({
+                buyingItems: new uint[](0),
+                sellingItems: new uint[](0)
+            });
+           users[msg.sender] = u;
+           userExists[msg.sender] = true;
+           userInts[countUser] = msg.sender;
+           countUser += 1;
+        }
    }
 
    function createItem(uint price) public { // TODO: check visibility
+       createUser();
        Item memory i = Item({
            ID: nextItemID,
            sellerAddress: msg.sender,
@@ -74,6 +75,7 @@ contract CeloContract {
 
     //check whether access to this function must be constricted
     function buyItem(uint id, int randomUser) public payable {
+        createUser();
         require(items[id].buyerAddress == address(0));
         require(id < nextItemID);
         items[id].buyerAddress = msg.sender;
@@ -89,6 +91,7 @@ contract CeloContract {
     }
 
     function sellerAcceptSale (uint id) public {
+        createUser();
     	require(items[id].buyerAddress != address(0));
     	require(items[id].sellerAddress == msg.sender);
     	require(now - items[id].buyTime < sellerAcceptPeriod);
@@ -97,6 +100,7 @@ contract CeloContract {
     }
 
     function buyerConfirmsReceived (uint id) public {
+        createUser();
         require(msg.sender == items[id].buyerAddress);
         require(!items[id].claimNonreceived);
         require(!items[id].received);
@@ -104,6 +108,7 @@ contract CeloContract {
     }
 
     function buyerClaimsNonReceived (uint id) public {
+        createUser();
         require(items[id].mediatorAddress != address(0));
         require(msg.sender == items[id].buyerAddress);
         require(now - items[id].sellerAcceptTime > waitPeriod);
@@ -114,6 +119,7 @@ contract CeloContract {
     }
 
     function sellerAcceptNonReceived (uint id) public {
+        createUser();
     	require(items[id].sellerAddress == msg.sender);
     	require(items[id].buyerAddress != address(0));
         require(items[id].claimNonreceived);
@@ -122,6 +128,7 @@ contract CeloContract {
     }
 
     function sellerChallengeNonReceived (uint id) public {
+        createUser();
         require(items[id].sellerAddress == msg.sender);
     	require(items[id].buyerAddress != address(0));
         require(items[id].claimNonreceived);
@@ -131,6 +138,7 @@ contract CeloContract {
     }
 
     function mediatorSettlesChallenge (uint id, bool favorSeller) public {
+        createUser();
     	require (items[id].challengeNonreceived);
     	require (msg.sender == items[id].mediatorAddress);
         require (items[id].challengeWinner == address(0));
@@ -142,6 +150,7 @@ contract CeloContract {
     }
 
     function sellerRedeem(uint id) public {
+        createUser();
     	require(items[id].buyerAddress != address(0));
         require(msg.sender == items[id].sellerAddress);
         require(
@@ -160,6 +169,7 @@ contract CeloContract {
     }
 
     function buyerWithdraw(uint id) public {
+        createUser();
         require(items[id].sellerAddress != address(0));
         require(msg.sender == items[id].buyerAddress);
         require(
