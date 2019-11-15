@@ -38,7 +38,7 @@ class UserDashboard extends Component {
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
           <h1>
-            Hi, this is the User Dashboard for {this.state.account}
+            Hi, this is the User Dashboard for {this.contract.address}
           </h1>
           <BuyerDashboard
             setClaimReceivedStatus={this.contract.setClaimReceivedStatus.bind(this.contract)}

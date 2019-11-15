@@ -97,10 +97,11 @@ export default class CeloContract {
     async buyItem(id, proxy) {
         const item = await this.itemById(id);
         if (proxy) {
-            return await this.methods.buyItem(item.price, this.address)
+            console.log(item.price)
+            return await this.methods.buyItem(id, this.address)
                 .send({ from: this.address, value: item.price })
         } else {
-            return await this.methods.buyItem(item.price, ZERO_ADDRESS)
+            return await this.methods.buyItem(id, ZERO_ADDRESS)
                 .send({ from: this.address, value: item.price })
         }
     }
