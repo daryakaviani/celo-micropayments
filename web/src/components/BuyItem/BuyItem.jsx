@@ -7,7 +7,7 @@ class BuyItem extends Component {
         super(props);
         this.state = {
             value: "",
-            proxy: "With Proxy"
+            proxy: "With Mediator"
         };
     }
 
@@ -30,13 +30,9 @@ class BuyItem extends Component {
         var contract = this.props.contract;
         var account = this.props.account;
         this.getItemValue(this.state.value).then(function (result) {
-            console.log(itemID, proxy, result);
-            if (proxy == "With Proxy") {
-                contract.methods.countUser().call().then(function (userCount) {
-                    var randomValue = Math.floor(Math.random() * userCount);
-                    contract.methods.buyItem(itemID, randomValue).send({ from: account, value: parseInt(result) }).then(function (receipt) {
-                        console.log(receipt);
-                    })
+            if (proxy == "With Mediator") {
+                contract.methods.buyItem(itemID, account).send({ from: account, value: parseInt(result) }).then(function (receipt) {
+                    console.log(receipt);
                 })
             } else {
                 contract.methods.buyItem(itemID, -1).send({ from: account, value: parseInt(result) }).then(function (receipt) {
@@ -66,10 +62,10 @@ class BuyItem extends Component {
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
                         <Form.Group controlID="proxy">
-                            <Form.Label>Proxy</Form.Label>
+                            <Form.Label>Mediator</Form.Label>
                             <Form.Control as="select" onChange={this.handleProxyChange}>
-                                <option>With Proxy</option>
-                                <option>Without Proxy</option>
+                                <option>With Mediator</option>
+                                <option>Without Mediator</option>
                             </Form.Control>
                         </Form.Group>
                         <Button variant="primary" type="submit" onClick={this.handleBuyItem}>

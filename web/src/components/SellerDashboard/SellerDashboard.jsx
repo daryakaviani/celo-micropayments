@@ -1,8 +1,7 @@
 
 
 import React, { Component } from "react";
-import { Button, Badge, Card, Form } from "react-bootstrap";
-import Item from "../Item/Item";
+import { Button, Card, Form } from "react-bootstrap";
 import NewItem from "../NewItem/NewItem";
 
 class SellerDashboard extends Component {
@@ -16,7 +15,7 @@ class SellerDashboard extends Component {
   handleMakeItem = (event) => {
     event.preventDefault();
     var priceNumber = parseInt(this.state.value);
-    this.props.contract.methods.createItem(priceNumber).send({ from: this.props.account }).then(function (receipt) { console.log(receipt) });
+    this.props.makeItem({ price: priceNumber }).then((receipt) => { console.log(receipt) });
   }
 
   handleMakeValueChange = (event) => {
@@ -30,7 +29,7 @@ class SellerDashboard extends Component {
         <Card.Body>
           <h2>Make Item</h2>
           <Form>
-            <Form.Group controlID="itemID">
+            <Form.Group controlId="itemID">
               <Form.Label>Item Price</Form.Label>
               <Form.Control type="text" placeholder="" onChange={this.handleMakeValueChange} />
             </Form.Group>
@@ -40,28 +39,36 @@ class SellerDashboard extends Component {
           </Form>
           <hr></hr>
           <h3>Current Inventory</h3>
-          <table class="itemTable">
+          <table className="itemTable">
             <thead>
-              <th>ID</th>
-              <th>Price</th>
-              <th>Recipient</th>
-              <th>Expected Deadline</th>
-              <th>Challenge Status</th>
+              <tr>
+                <th>ID</th>
+                <th>Price</th>
+                <th>Recipient</th>
+                <th>Expected Deadline</th>
+                <th>Challenge Status</th>
+              </tr>
             </thead>
             <tbody>
-              {this.props.sellingItems.map((item) => <NewItem account={this.props.account} contract={this.props.contract} item={item} type="selling" />)}
+              {this.props.sellingItems.map((item) => <NewItem sellerChallenge={
+              () => this.props.sellerChallenge(item.ID)
+              } item={item} key={item.ID} type="selling" />)}
             </tbody>
           </table>
           <h3>Completed Sales</h3>
-          <table class="itemTable">
+          <table className="itemTable">
             <thead>
-              <th>Name</th>
-              <th>Amount</th>
-              <th>Recipient</th>
-              <th>Bought Time</th>
+              <tr>
+                <th>Name</th>
+                <th>Amount</th>
+                <th>Recipient</th>
+                <th>Bought Time</th>
+              </tr>
             </thead>
             <tbody>
-              {this.props.soldItems.map((item) => <NewItem account={this.props.account} contract={this.props.contract} item={item} type="sold" />)}
+              {this.props.soldItems.map((item) => <NewItem item={item}
+                                                           key={item.ID}
+                                                           type="sold" />)}
             </tbody>
           </table>
         </Card.Body>
