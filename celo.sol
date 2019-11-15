@@ -4,7 +4,7 @@ contract CeloContract {
 	uint public nextItemID = 0;
 	int public countUser = 0;
     mapping(address => User) users;
-    mapping(int => address) userInts;
+    mapping(int => address payable) userInts;
     mapping(uint => Item) public items;
     //amount of time after seller accepts the sale that the buyer cannot challenge that they have not received the item
 	uint constant public waitPeriod = 30 seconds;
@@ -12,17 +12,18 @@ contract CeloContract {
 	uint constant public challengePeriod = 30 seconds;
 	//amount of time seller has to accept the sale
     uint constant public sellerAcceptPeriod = 30 seconds;
-  //amount of time the seller has to challenge that their item is not received, starting after buyer challenges
+    //amount of time the seller has to challenge that their item is not received, starting after buyer challenges
     uint constant public sellerChallengePeriod = 30 seconds;
     mapping(address => bool) public userExists;
+    uint mediatorFee = 3;
 
 	struct Item {
         uint ID;
         address payable sellerAddress;
-        address buyerAddress;
+        address payable buyerAddress;
         uint price;
         bool received;
-        address mediatorAddress;
+        address payable mediatorAddress;
         uint buyTime;
         uint sellerAcceptTime;
         uint challengeTime;
@@ -75,12 +76,13 @@ contract CeloContract {
     function buyItem(uint id, int randomUser) public payable {
         require(items[id].buyerAddress == address(0));
         require(id < nextItemID);
-        require(msg.value == items[id].price); //what happens if someone calls this with a nonexistent id?
         items[id].buyerAddress = msg.sender;
         users[msg.sender].buyingItems.push(id);
         if (randomUser == -1) {
+            require(msg.value == items[id].price);
             items[id].mediatorAddress = address(0);
         } else {
+            require(msg.value == items[id].price + (mediatorFee/10)*items[id].price);
             items[id].mediatorAddress = userInts[randomUser];
         }
         items[id].buyTime = now;
@@ -150,7 +152,10 @@ contract CeloContract {
             ) ||
             items[id].challengeWinner == items[id].sellerAddress
         );
-        msg.sender.transfer(items[id].price);
+        items[id].sellerAddress.transfer(items[id].price);
+        if(items[id].mediatorAddress != address(0)){
+            items[id].mediatorAddress.transfer((mediatorFee/10)*items[id].price);
+        }
         items[id].sellerAddress = address(0);
     }
 
@@ -167,6 +172,9 @@ contract CeloContract {
             items[id].challengeWinner == items[id].buyerAddress
         );
         msg.sender.transfer(items[id].price);
+        if(items[id].mediatorAddress != address(0)){
+            items[id].mediatorAddress.transfer((mediatorFee/10)*items[id].price);
+        }
         items[id].buyerAddress = address(0);
     }
 
