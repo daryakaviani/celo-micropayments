@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Table, Card, Form } from "react-bootstrap";
+import { Button, Card, Form } from "react-bootstrap";
 import "./BuyItem.css";
 
 class BuyItem extends Component {
@@ -9,18 +9,6 @@ class BuyItem extends Component {
             value: "",
             proxy: "With Mediator"
         };
-    }
-
-    async getItemValue(id) {
-        var itemsLength = await this.props.contract.methods.nextItemID().call();
-        this.setState({ itemsLength })
-        for (var i = 0; i < this.state.itemsLength; i++) {
-            var currentItem = await this.props.contract.methods.items(i).call();
-            if (currentItem["ID"] == id) {
-                return parseInt(currentItem["price"]);
-            }
-        }
-        return 0;
     }
 
     handleBuyItem = (event) => {
@@ -57,11 +45,12 @@ class BuyItem extends Component {
                 <Card.Body>
                     <h3>Buy Item</h3>
                     <Form>
-                        <Form.Group controlID="itemID">
+                        <Form.Group controlId="itemID">
                             <Form.Label>Item ID</Form.Label>
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
-                        <Form.Group controlID="proxy">
+
+                        <Form.Group controlId="proxy">
                             <Form.Label>Mediator</Form.Label>
                             <Form.Control as="select" onChange={this.handleProxyChange}>
                                 <option>With Mediator</option>
