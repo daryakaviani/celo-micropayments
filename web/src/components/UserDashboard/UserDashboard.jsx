@@ -27,7 +27,10 @@ class UserDashboard extends Component {
   }
 
   componentDidMount() {
-    this.loadData().catch((e) => this.setState({ error: e }));
+    this.loadData().catch(e => {
+      console.error(e);
+      this.setState({ error: e })
+    });
   }
 
   render() {
