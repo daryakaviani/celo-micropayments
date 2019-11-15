@@ -27,14 +27,15 @@ class UserDashboard extends Component {
   }
 
   componentDidMount() {
-    this.loadData();
+    this.loadData().catch((e) => this.setState({ error: e }));
   }
 
   render() {
     return (
       <div>
         <br />
-        {!this.state.loaded && <Container>Loading...</Container>}
+        {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
+        {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
           <h1>
             Hi, this is the User Dashboard for {this.state.account}
