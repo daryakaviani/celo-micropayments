@@ -5,6 +5,7 @@ import NewItem from "../NewItem/NewItem";
 class BuyerDashboard extends Component {
   constructor(props) {
     super(props);
+
   }
 
   render() {
@@ -26,10 +27,10 @@ class BuyerDashboard extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.buyingItems.map((item) => <NewItem handleClaimRecieved={
+                {this.props.buyingItems.map((item) => <NewItem handleClaimRecieved={
                 (rec) => this.props.handleClaimRecieved(item.ID, rec)
-              } type="buying" key={item.ID} item={item}></NewItem>
-              )}
+                } type="buying" key={item.ID} item={item}></NewItem>
+                )}
             </tbody>
           </table>
           <h3>
@@ -46,8 +47,8 @@ class BuyerDashboard extends Component {
             </thead>
             <tbody>
               {this.props.boughtItems.map((item) => (<NewItem type="bought"
-                key={item.ID}
-                item={item} />))}
+                                                              key={item.ID}
+                                                              item={item} />))}
             </tbody>
           </table>
         </Card.Body>

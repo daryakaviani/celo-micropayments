@@ -13,20 +13,11 @@ class BuyItem extends Component {
 
     handleBuyItem = (event) => {
         event.preventDefault();
-        var itemID = this.state.value;
+        var value = this.state.value;
         var proxy = this.state.proxy;
-        var contract = this.props.contract;
-        var account = this.props.account;
-        this.getItemValue(this.state.value).then(function (result) {
-            if (proxy == "With Mediator") {
-                contract.methods.buyItem(itemID, account).send({ from: account, value: parseInt(result) }).then(function (receipt) {
-                    console.log(receipt);
-                })
-            } else {
-                contract.methods.buyItem(itemID, -1).send({ from: account, value: parseInt(result) }).then(function (receipt) {
-                    console.log(receipt);
-                })
-            }
+
+        this.props.buyItem(Number(value), proxy === "With Mediator").then((receipt) => {
+            console.log(receipt);
         });
     }
 
@@ -49,7 +40,6 @@ class BuyItem extends Component {
                             <Form.Label>Item ID</Form.Label>
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
-
                         <Form.Group controlId="proxy">
                             <Form.Label>Mediator</Form.Label>
                             <Form.Control as="select" onChange={this.handleProxyChange}>
