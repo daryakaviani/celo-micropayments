@@ -7,6 +7,22 @@ export default class CeloContract {
 
     constructor() {
         this.itemById = this.itemById.bind(this);
+
+        this.setClaimReceivedStatus = this.wrap(this.setClaimReceivedStatus)
+        this.makeItem = this.wrap(this.makeItem)
+        this.sellerChallenge = this.wrap(this.sellerChallenge)
+        this.buyItem = this.wrap(this.buyItem)
+        this.setle = this.wrap(this.settle)
+    }
+
+    /** Binds the given function to the class and emits events. */
+    wrap(fn) {
+        return ((...args) => {
+            return fn.bind(this)(...args).then(() => {
+                // To receive events, set this.listener to a function
+                if (this.listener) this.listener()
+            })
+        })
     }
 
     /** The address of the current user, fetched from metamask. */
