@@ -1,3 +1,4 @@
+const User = require('./models/Users.js');
 const express = require('express');
 
 const app = express();

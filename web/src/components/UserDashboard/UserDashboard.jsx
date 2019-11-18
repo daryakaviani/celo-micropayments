@@ -24,12 +24,15 @@ class UserDashboard extends Component {
     this.state = {
       loaded: false
     };
+    this.contract.listener = () => {
+      this.loadData()
+    }
   }
 
   componentDidMount() {
     this.loadData().catch(e => {
       console.error(e);
-      this.setState({ error: e })
+      this.setState({ error: e });
     });
   }
 
@@ -44,19 +47,19 @@ class UserDashboard extends Component {
             Hi, this is the User Dashboard for {this.contract.address}
           </h1>
           <BuyerDashboard
-            setClaimReceivedStatus={this.contract.setClaimReceivedStatus.bind(this.contract)}
+            setClaimReceivedStatus={this.contract.setClaimReceivedStatus}
             buyingItems={this.state.pendingPurchases}
             boughtItems={this.state.completedPurchases}>
           </BuyerDashboard>
           <SellerDashboard
-            makeItem={this.contract.makeItem.bind(this.contract)}
-            sellerChallenge={this.contract.sellerChallenge.bind(this.contract)}
+            makeItem={this.contract.makeItem}
+            sellerChallenge={this.contract.sellerChallenge}
             sellingItems={this.state.currentInventory}
             soldItems={this.state.completedSales}></SellerDashboard>
           <CardGroup>
-            <BuyItem buyItem={this.contract.buyItem.bind(this.contract)}></BuyItem>
+            <BuyItem buyItem={this.contract.buyItem}></BuyItem>
             <Challenges
-              settle={this.contract.settle.bind(this.contract)}
+              settle={this.contract.settle}
               challenges={this.state.challenges}>
             </Challenges>
           </CardGroup>

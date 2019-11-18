@@ -27,8 +27,8 @@ class BuyerDashboard extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.props.buyingItems.map((item) => <NewItem handleClaimRecieved={
-                (rec) => this.props.handleClaimRecieved(item.ID, rec)
+                {this.props.buyingItems.map((item) => <NewItem setClaimReceivedStatus={
+                (rec) => this.props.setClaimReceivedStatus(item.ID, rec)
                 } type="buying" key={item.ID} item={item}></NewItem>
                 )}
             </tbody>
