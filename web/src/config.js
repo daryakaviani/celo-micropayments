@@ -1,4 +1,4 @@
-export const CELO_ADDRESS = "0xaf5059A138356710031219B0655B8af2D1714491";
+export const CELO_ADDRESS = "0x005B4A1Aa36bD3c533b7E6ED72F77B05e985C0E9";
 export const CELO_ABI = [
     {
         "constant": false,
@@ -54,9 +54,9 @@ export const CELO_ABI = [
                 "type": "uint256"
             },
             {
-                "internalType": "uint256",
+                "internalType": "int256",
                 "name": "randomUser",
-                "type": "uint256"
+                "type": "int256"
             }
         ],
         "name": "buyItem",
@@ -190,9 +190,9 @@ export const CELO_ABI = [
         "name": "countUser",
         "outputs": [
             {
-                "internalType": "uint256",
+                "internalType": "int256",
                 "name": "",
-                "type": "uint256"
+                "type": "int256"
             }
         ],
         "payable": false,
@@ -263,7 +263,7 @@ export const CELO_ABI = [
                 "type": "address"
             },
             {
-                "internalType": "address",
+                "internalType": "address payable",
                 "name": "buyerAddress",
                 "type": "address"
             },
@@ -278,7 +278,7 @@ export const CELO_ABI = [
                 "type": "bool"
             },
             {
-                "internalType": "address",
+                "internalType": "address payable",
                 "name": "mediatorAddress",
                 "type": "address"
             },
@@ -403,4 +403,4 @@ export const CELO_ABI = [
         "stateMutability": "view",
         "type": "function"
     }
-];
+]

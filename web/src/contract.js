@@ -101,6 +101,8 @@ export default class CeloContract {
 
             var userCount = await this.methods.countUser().call();
             var randomValue = Math.floor(Math.random() * userCount);
+            console.log(randomValue);
+            console.log(userCount);
 
             return await this.methods.buyItem(id, randomValue)
                 .send({ from: this.address, value: item.price })
