@@ -7,6 +7,7 @@ import Challenges from "../Challenges/Challenges"
 import { CardGroup, Button, Modal, InputGroup } from "react-bootstrap";
 import "./UserDashboard.css";
 import CeloContract from "../../contract";
+import axios from "axios";
 
 class UserDashboard extends Component {
 
@@ -16,6 +17,10 @@ class UserDashboard extends Component {
     this.setState(await this.contract.state());
     console.log(this.state);
     this.setState({ loaded: true })
+    axios.get('http://localhost:4000/user/' + this.contract.address).then(res => {
+      this.setState({ currentName: res.data });
+      console.log(this.state.currentName);
+    });
   }
 
   constructor(props) {
@@ -42,7 +47,10 @@ class UserDashboard extends Component {
   handleClose = () => {
     this.setState({ show: false });
     this.setState({ currentName: this.state.updatingName });
-    console.log(this.state.currentName);
+    axios.post('http://localhost:4000/user', { name: this.state.currentName, address: this.contract.address })
+      .then(res => {
+        console.log("changed");
+      })
   }
 
   handleShow = () => {
