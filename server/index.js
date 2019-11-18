@@ -7,8 +7,12 @@ app.get('/', (req, res) => {
     res.send('Use the React frontend for interacting with the API!');
 });
 
-app.post('/transact', (req, res) => {
-    // Process the transaction
+app.get('/user', (req, res) => {
+    res.send("");
+});
+
+app.post('/user', (req, res) => {
+
 });
 
 const port = process.env.PORT || 4000;

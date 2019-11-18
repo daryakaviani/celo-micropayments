@@ -4,7 +4,7 @@ import BuyerDashboard from "../BuyerDashboard/BuyerDashboard";
 import SellerDashboard from "../SellerDashboard/SellerDashboard";
 import BuyItem from "../BuyItem/BuyItem"
 import Challenges from "../Challenges/Challenges"
-import { CardGroup } from "react-bootstrap";
+import { CardGroup, Button, Modal, InputGroup } from "react-bootstrap";
 import "./UserDashboard.css";
 import CeloContract from "../../contract";
 
@@ -22,7 +22,10 @@ class UserDashboard extends Component {
     super(props);
     this.contract = new CeloContract();
     this.state = {
-      loaded: false
+      loaded: false,
+      show: false,
+      currentName: "",
+      updatingName: ""
     };
     this.contract.listener = () => {
       this.loadData()
@@ -36,6 +39,20 @@ class UserDashboard extends Component {
     });
   }
 
+  handleClose = () => {
+    this.setState({ show: false });
+    this.setState({ currentName: this.state.updatingName });
+    console.log(this.state.currentName);
+  }
+
+  handleShow = () => {
+    this.setState({ show: true });
+  }
+
+  handleChangeName = (event) => {
+    this.setState({ updatingName: event.target.value });
+  }
+
   render() {
     return (
       <div>
@@ -44,8 +61,28 @@ class UserDashboard extends Component {
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
           <h1>
-            Hi, this is the User Dashboard for {this.contract.address}
+            Hi, this is the User Dashboard for {this.state.currentName == "" ? this.contract.address : this.state.currentName}
           </h1>
+
+          <Button onClick={this.handleShow}>
+            Change Name
+          </Button>
+          <hr />
+
+          <Modal show={this.state.show} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Change Name</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <input type="text" onChange={this.handleChangeName} placeholder="New Name"></input>
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="primary" onClick={this.handleClose}>
+                Change Name
+              </Button>
+            </Modal.Footer>
+          </Modal>
+
           <BuyerDashboard
             setClaimReceivedStatus={this.contract.setClaimReceivedStatus}
             buyingItems={this.state.pendingPurchases}
