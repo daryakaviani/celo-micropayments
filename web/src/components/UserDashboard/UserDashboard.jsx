@@ -47,7 +47,7 @@ class UserDashboard extends Component {
   handleClose = () => {
     this.setState({ show: false });
     this.setState({ currentName: this.state.updatingName });
-    axios.post('http://localhost:4000/user', { name: this.state.currentName, address: this.contract.address })
+    axios.post('http://localhost:4000/user', { name: this.state.updatingName, address: this.contract.address })
       .then(res => {
         console.log("changed");
       })
