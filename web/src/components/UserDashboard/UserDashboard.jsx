@@ -17,7 +17,7 @@ class UserDashboard extends Component {
     this.setState(await this.contract.state());
     console.log(this.state);
     this.setState({ loaded: true })
-    axios.get('http://localhost:4000/user/' + this.contract.address).then(res => {
+    axios.get('/user/' + this.contract.address).then(res => {
       this.setState({ currentName: res.data });
       console.log(this.state.currentName);
     });
@@ -47,7 +47,7 @@ class UserDashboard extends Component {
   handleClose = () => {
     this.setState({ show: false });
     this.setState({ currentName: this.state.updatingName });
-    axios.post('http://localhost:4000/user', { name: this.state.updatingName, address: this.contract.address })
+    axios.post('/user', { name: this.state.updatingName, address: this.contract.address })
       .then(res => {
         console.log("changed");
       })
@@ -77,13 +77,14 @@ class UserDashboard extends Component {
                         }
                         `}
         </style>
-        <div>
-          <img src="../image.png" alt="" />
-        </div>
+
         <br />
         {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
+          <div>
+            <img src="./image.png" alt="Hello" />
+          </div>
           <h1>
             Hi, this is the User Dashboard for {this.state.currentName == "" ? this.contract.address : this.state.currentName}
           </h1>
