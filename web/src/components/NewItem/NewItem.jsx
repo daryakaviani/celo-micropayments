@@ -44,6 +44,19 @@ class NewItem extends Component {
         deadline.add(2, "weeks");
         return (
             <tr className="item">
+                <style type="text/css">
+                    {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+                </style>
                 <td>
                     {this.props.item["ID"]}
                 </td>
@@ -59,7 +72,7 @@ class NewItem extends Component {
                 <td>
                     {this.props.item.hasBuyer ? (this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged") : null}
                 </td>
-                {this.props.item["claimNonrecieved"] ? <td><Button onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
+                {this.props.item["claimNonrecieved"] ? <td><Button variant="success" onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
             </tr>)
     }
 
@@ -67,6 +80,19 @@ class NewItem extends Component {
         var item_sold = moment.unix(this.props.item["buyTime"]);
         return (
             <tr className="item">
+                <style type="text/css">
+                    {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+                </style>
                 <td>
                     {this.props.item["ID"]}
                 </td>
@@ -86,6 +112,19 @@ class NewItem extends Component {
         var bought_time = moment.unix(this.props.item["buyTime"]);
         return (
             <tr className="item">
+                <style type="text/css">
+                    {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+                </style>
                 <td>
                     {this.props.item["ID"]}
                 </td>
@@ -107,6 +146,19 @@ class NewItem extends Component {
         deadline.add(2, "weeks");
         return (
             <tr className="item">
+                <style type="text/css">
+                    {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+                </style>
                 <td>
                     {this.props.item["ID"]}
                 </td>
@@ -119,16 +171,18 @@ class NewItem extends Component {
                 <td>
                     {deadline.format("ll")}
                 </td>
+
                 <td>
-                    <Button onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
+                    <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
                     &nbsp;
-                    <Button onClick={this.handleRecieved} >Recieved</Button>
+                    <Button variant="lighter-green" onClick={this.handleRecieved} >Recieved</Button>
                 </td>
             </tr>
         )
     }
 
     render() {
+
         if (this.props.type === "selling") {
             return this.sellingCode();
         }

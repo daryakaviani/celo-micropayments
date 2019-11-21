@@ -24,16 +24,32 @@ class SellerDashboard extends Component {
 
   render() {
     return (
-      <Card>
+      <Card style={{
+        color: "black", backgroundColor: "#C9E265"
+      }
+      }>
+        <style type="text/css">
+          {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+        </style>
         <Card.Header>Seller Dashboard</Card.Header>
         <Card.Body>
-          <h2>Make Item</h2>
+          <h2 style={{ color: "white" }}>Make Item</h2>
           <Form>
             <Form.Group controlId="itemID">
-              <Form.Label>Item Price</Form.Label>
+              <Form.Label style={{ color: "white" }}>Item Price</Form.Label>
               <Form.Control type="text" placeholder="" onChange={this.handleMakeValueChange} />
             </Form.Group>
-            <Button variant="primary" type="submit" onClick={this.handleMakeItem}>
+            <Button variant="darker-green" type="submit" onClick={this.handleMakeItem}>
               Submit
                 </Button>
           </Form>
@@ -51,7 +67,7 @@ class SellerDashboard extends Component {
             </thead>
             <tbody>
               {this.props.sellingItems.map((item) => <NewItem sellerChallenge={
-              () => this.props.sellerChallenge(item.ID)
+                () => this.props.sellerChallenge(item.ID)
               } item={item} key={item.ID} type="selling" />)}
             </tbody>
           </table>
@@ -67,12 +83,12 @@ class SellerDashboard extends Component {
             </thead>
             <tbody>
               {this.props.soldItems.map((item) => <NewItem item={item}
-                                                           key={item.ID}
-                                                           type="sold" />)}
+                key={item.ID}
+                type="sold" />)}
             </tbody>
           </table>
         </Card.Body>
-      </Card>
+      </Card >
     );
   }
 }

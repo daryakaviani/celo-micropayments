@@ -64,6 +64,22 @@ class UserDashboard extends Component {
   render() {
     return (
       <div>
+        <style type="text/css">
+          {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+        </style>
+        <div>
+          <img src="../image.png" alt="" />
+        </div>
         <br />
         {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
@@ -72,20 +88,20 @@ class UserDashboard extends Component {
             Hi, this is the User Dashboard for {this.state.currentName == "" ? this.contract.address : this.state.currentName}
           </h1>
 
-          <Button onClick={this.handleShow}>
+          <Button variant="darker-green" onClick={this.handleShow}>
             Change Name
           </Button>
           <hr />
 
           <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Change Name</Modal.Title>
+              <Modal.Title style={{ color: "white" }}>Change Name</Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <input type="text" onChange={this.handleChangeName} placeholder="New Name"></input>
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="primary" onClick={this.handleClose}>
+              <Button variant="success" onClick={this.handleClose}>
                 Change Name
               </Button>
             </Modal.Footer>

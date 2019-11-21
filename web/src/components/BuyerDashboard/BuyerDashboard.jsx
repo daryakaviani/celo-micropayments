@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Card } from "react-bootstrap";
 import NewItem from "../NewItem/NewItem";
+import "./BuyerDashboard.css";
 
 class BuyerDashboard extends Component {
   constructor(props) {
@@ -10,7 +11,10 @@ class BuyerDashboard extends Component {
 
   render() {
     return (
-      <Card>
+      <Card style={{
+        color: "black", backgroundColor: "#C9E265"
+      }
+      }>
         <Card.Header>Buyer Dashboard</Card.Header>
         <Card.Body>
           <h3>
@@ -27,10 +31,10 @@ class BuyerDashboard extends Component {
               </tr>
             </thead>
             <tbody>
-                {this.props.buyingItems.map((item) => <NewItem setClaimReceivedStatus={
+              {this.props.buyingItems.map((item) => <NewItem setClaimReceivedStatus={
                 (rec) => this.props.setClaimReceivedStatus(item.ID, rec)
-                } type="buying" key={item.ID} item={item}></NewItem>
-                )}
+              } type="buying" key={item.ID} item={item}></NewItem>
+              )}
             </tbody>
           </table>
           <h3>
@@ -47,8 +51,8 @@ class BuyerDashboard extends Component {
             </thead>
             <tbody>
               {this.props.boughtItems.map((item) => (<NewItem type="bought"
-                                                              key={item.ID}
-                                                              item={item} />))}
+                key={item.ID}
+                item={item} />))}
             </tbody>
           </table>
         </Card.Body>

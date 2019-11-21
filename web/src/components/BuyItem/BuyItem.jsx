@@ -31,23 +31,39 @@ class BuyItem extends Component {
 
     render() {
         return (
-            <Card>
+            <Card style={{
+                color: "black", backgroundColor: "#C9E265"
+            }
+            }>
+                <style type="text/css">
+                    {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+                </style>
                 <Card.Header>Buy Item</Card.Header>
                 <Card.Body>
                     <h3>Buy Item</h3>
                     <Form>
                         <Form.Group controlId="itemID">
-                            <Form.Label>Item ID</Form.Label>
+                            <Form.Label style={{ color: "white" }}>Item ID</Form.Label>
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
                         <Form.Group controlId="proxy">
-                            <Form.Label>Mediator</Form.Label>
-                            <Form.Control as="select" onChange={this.handleProxyChange}>
+                            <Form.Label style={{ color: "white" }}>Mediator</Form.Label>
+                            <Form.Control style={{ color: "white" }} as="select" onChange={this.handleProxyChange}>
                                 <option>With Mediator</option>
                                 <option>Without Mediator</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button variant="primary" type="submit" onClick={this.handleBuyItem}>
+                        <Button variant="darker-green" type="submit" onClick={this.handleBuyItem}>
                             Submit
                     </Button>
                     </Form>

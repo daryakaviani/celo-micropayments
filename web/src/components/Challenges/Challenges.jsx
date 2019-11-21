@@ -19,7 +19,10 @@ class Challenges extends Component {
 
   render() {
     return (
-      <Card>
+      <Card style={{
+        color: "black", backgroundColor: "#C9E265"
+      }
+      }>
         <Card.Header>Mediator Dashboard</Card.Header>
         <Card.Body>
           <h3>Mediator Dashboard</h3>
