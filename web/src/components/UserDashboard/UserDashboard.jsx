@@ -77,13 +77,14 @@ class UserDashboard extends Component {
                         }
                         `}
         </style>
-        <div>
-          <img src="../image.png" alt="" />
-        </div>
+
         <br />
         {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
+          <div>
+            <img src="./image.png" alt="Hello" />
+          </div>
           <h1>
             Hi, this is the User Dashboard for {this.state.currentName == "" ? this.contract.address : this.state.currentName}
           </h1>
