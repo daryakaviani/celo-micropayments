@@ -23,10 +23,26 @@ class Challenges extends Component {
         color: "black", backgroundColor: "#C9E265"
       }
       }>
+        <style type="text/css">
+          {`
+                        .btn-darker-green {
+                        background-color: #C9E265;
+                        color: black;
+                        }
+
+                        .btn-lighter-green{
+                            background-color: #EFFFB1;
+                            color:black;
+                        }
+                        `}
+        </style>
         <Card.Header>Mediator Dashboard</Card.Header>
         <Card.Body>
           <h3>Mediator Dashboard</h3>
-          <Table className="itemTable">
+          <Table className="itemTable" style={{
+            width:
+              "95%"
+          }}>
             <thead>
               <tr>
                 <th>ID</th>
@@ -37,8 +53,8 @@ class Challenges extends Component {
               {this.props.challenges.map((item) => (
                 <tr>
                   <td>{item["ID"]}</td>
-                  <td><Button onClick={this.handleSettler(item.ID, false)}>Buyer</Button> &nbsp;
-                  <Button onClick={this.handleSettler(item.ID, true)}>Seller</Button></td>
+                  <td><Button variant="darker-green" onClick={this.handleSettler(item.ID, false)}>Buyer</Button> &nbsp;
+                  <Button variant="darker-green" onClick={this.handleSettler(item.ID, true)}>Seller</Button></td>
                 </tr>
               ))}
             </tbody>

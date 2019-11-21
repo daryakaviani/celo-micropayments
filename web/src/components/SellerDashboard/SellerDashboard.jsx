@@ -55,7 +55,7 @@ class SellerDashboard extends Component {
           </Form>
           <hr></hr>
           <h3>Current Inventory</h3>
-          <table className="itemTable">
+          <table className="itemTable" style={{ width: "95%" }}>
             <thead>
               <tr>
                 <th>ID</th>

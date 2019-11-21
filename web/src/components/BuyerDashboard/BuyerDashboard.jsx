@@ -20,14 +20,14 @@ class BuyerDashboard extends Component {
           <h3>
             Pending purchases
           </h3>
-          <table className="itemTable">
+          <table className="itemTable" style={{ width: "95%" }}>
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Amount</th>
                 <th>Seller</th>
                 <th>Expected Arrival</th>
-                <th>Actions</th>
+                <th style={{ textAlign: "center" }}>Actions</th>
               </tr>
             </thead>
             <tbody>

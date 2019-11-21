@@ -8,7 +8,8 @@ import { CardGroup, Button, Modal, InputGroup } from "react-bootstrap";
 import "./UserDashboard.css";
 import CeloContract from "../../contract";
 import axios from "axios";
-import image from "../newImages.png"
+import image from "../newImages.png";
+import image2 from "../footerImage.png";
 
 class UserDashboard extends Component {
 
@@ -64,7 +65,7 @@ class UserDashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{ background: "#303030" }}>
         <style type="text/css">
           {`
                         .btn-darker-green {
@@ -90,10 +91,10 @@ class UserDashboard extends Component {
             </Button>
           </div>
           <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <img src={image} alt="Hello" height="200" width="355" />
+            <img src={image} alt="Hello" height="250" width="444" />
           </div>
           <h1>
-            Welcome, {this.state.currentName == "" ? this.contract.address : this.state.currentName}
+            Welcome, {this.state.currentName == "" ? this.contract.address : this.state.currentName}.
           </h1>
           <hr />
 
@@ -128,11 +129,12 @@ class UserDashboard extends Component {
               challenges={this.state.challenges}>
             </Challenges>
           </CardGroup>
+
         </Container>}
         <br />
-        <div>
-          <img src="" style={{ float: "right" }} alt="" />
-        </div>
+        <img style={{ float: "right" }} src={image2} alt="" height="75px" width="133px" />
+        <div><br /><br /></div>
+        <br />
         <br />
       </div>
     );

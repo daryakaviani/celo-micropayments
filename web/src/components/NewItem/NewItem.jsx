@@ -192,7 +192,7 @@ class NewItem extends Component {
                     {deadline.format("ll")}
                 </td>
 
-                <td>
+                <td style={{ textAlign: "center" }}>
                     <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
                     &nbsp;
                     <Button variant="lighter-green" onClick={this.handleRecieved} >Recieved</Button>
