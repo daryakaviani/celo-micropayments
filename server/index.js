@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
 
 app.get('/user/:address', async (req, res) => {
     // stores in req.params.address
-    res.header("Access-Control-Allow-Origin", "*");
     var p = await User.findOne({ address: req.params.address });
     if (p == null) {
         res.send("null");
@@ -20,16 +19,14 @@ app.get('/user/:address', async (req, res) => {
     }
 });
 
-app.use('/user', (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept");
-    next();
-});
-
 app.post('/user', async (req, res) => {
     // req.body.address stores the address
     // req.body.name stores the name
-    var user = await User.create(req.body);
+    var user = await User.update(
+        { address: req.body.address },
+        req.body,
+        { upsert: true }
+    );
     res.send(req.body.name);
 });
 

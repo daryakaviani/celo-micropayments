@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./NewItem.css";
 import { Button } from "react-bootstrap"
+import axios from 'axios';
 var moment = require('moment');
 
 /*
@@ -17,7 +18,26 @@ received: false
 sellerAcceptNonReceived: false
 sellerAcceptTime: "0" <-- Time
 sellerAddress: "0xCCe64bAe8A291ca6dF731F1C62e85C28D7881911"
-*/
+ */
+
+class Address extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { address: '...' };
+    }
+
+    componentDidMount() {
+        axios.get('/user/' + this.props.address).then(res => {
+            this.setState({ address: res.data || this.props.address });
+        }).catch(e => {
+            this.setState({ address: e.toString() });
+        });
+    }
+
+    render() {
+        return <span>{this.state.address}</span>
+    }
+}
 
 class NewItem extends Component {
     constructor(props) {
@@ -64,7 +84,7 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    {this.props.item.hasBuyer ? this.props.item["buyerAddress"] : 'None yet'}
+                    <Address address={this.props.item.hasBuyer ? this.props.item["buyerAddress"] : 'None yet'} />
                 </td>
                 <td>
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
@@ -100,7 +120,7 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    {this.props.item["buyerAddress"]}
+                    <Address address={this.props.item["buyerAddress"]} />
                 </td>
                 <td>
                     {item_sold.format("ll")}
@@ -132,7 +152,7 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    {this.props.item["buyerAddress"]}
+                    <Address address={this.props.item["buyerAddress"]} />
                 </td>
                 <td>
                     {bought_time.format("ll")}
@@ -166,7 +186,7 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    {this.props.item["sellerAddress"]}
+                    <Address address={this.props.item["sellerAddress"]} />
                 </td>
                 <td>
                     {deadline.format("ll")}
