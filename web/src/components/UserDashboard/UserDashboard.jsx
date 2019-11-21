@@ -8,6 +8,7 @@ import { CardGroup, Button, Modal, InputGroup } from "react-bootstrap";
 import "./UserDashboard.css";
 import CeloContract from "../../contract";
 import axios from "axios";
+import image from "../newImages.png"
 
 class UserDashboard extends Component {
 
@@ -82,16 +83,18 @@ class UserDashboard extends Component {
         {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
         {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
         {this.state.loaded && <Container>
+          <br />
           <div>
-            <img src="./image.png" alt="Hello" />
+            <Button variant="darker-green" size="sm" style={{ float: "right" }} onClick={this.handleShow}>
+              Change Name
+            </Button>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <img src={image} alt="Hello" height="200" width="355" />
           </div>
           <h1>
-            Hi, this is the User Dashboard for {this.state.currentName == "" ? this.contract.address : this.state.currentName}
+            Welcome, {this.state.currentName == "" ? this.contract.address : this.state.currentName}
           </h1>
-
-          <Button variant="darker-green" onClick={this.handleShow}>
-            Change Name
-          </Button>
           <hr />
 
           <Modal show={this.state.show} onHide={this.handleClose}>
@@ -126,6 +129,11 @@ class UserDashboard extends Component {
             </Challenges>
           </CardGroup>
         </Container>}
+        <br />
+        <div>
+          <img src="" style={{ float: "right" }} alt="" />
+        </div>
+        <br />
       </div>
     );
   }
