@@ -129,7 +129,6 @@ class UserDashboard extends Component {
               challenges={this.state.challenges}>
             </Challenges>
           </CardGroup>
-
         </Container>}
         <br />
         <img style={{ float: "right" }} src={image2} alt="" height="75px" width="133px" />
