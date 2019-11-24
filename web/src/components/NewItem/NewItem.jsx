@@ -94,8 +94,8 @@ class NewItem extends Component {
                 <td>
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
-                <td>
-                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? <React.Fragment><Button variant="darker-green" style={{ float: "left" }} onClick={this.handleSellerChallenge}>Challenge</Button> <Button variant="darker-green" style={{ float: "right" }} onClick={this.handleSellerAccept}>Accept</Button></React.Fragment> : "Not Challenged") : null}
+                <td style={{ textAlign: "center" }}>
+                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? <React.Fragment><Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button>&nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment> : "Not Challenged") : null}
                 </td>
             </tr>)
     }
