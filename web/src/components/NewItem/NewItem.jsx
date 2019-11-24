@@ -90,9 +90,9 @@ class NewItem extends Component {
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td>
-                    {this.props.item.hasBuyer ? (this.props.item["claimNonreceieved"] ? "Challenged" : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? "Challenged" : "Not Challenged") : null}
                 </td>
-                {this.props.item["claimNonrecieved"] ? <td><Button variant="success" onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
+                {this.props.item.claimNonreceived ? <td><Button variant="success" onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
             </tr>)
     }
 

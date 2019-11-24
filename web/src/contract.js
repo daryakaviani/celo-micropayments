@@ -12,7 +12,7 @@ export default class CeloContract {
         this.makeItem = this.wrap(this.makeItem)
         this.sellerChallenge = this.wrap(this.sellerChallenge)
         this.buyItem = this.wrap(this.buyItem)
-        this.setle = this.wrap(this.settle)
+        this.settle = this.wrap(this.settle)
     }
 
     /** Binds the given function to the class and emits events. */
@@ -82,7 +82,7 @@ export default class CeloContract {
             if (item.buyerAddress === this.address && item.received) {
                 completedPurchases.push(item);
             }
-            if (item.mediatorAddress === this.address && !item.received) {
+            if (item.mediatorAddress === this.address && item.challengeNonreceived) {
                 challenges.push(item);
             }
         }
@@ -131,8 +131,9 @@ export default class CeloContract {
         }
     }
 
-    settle(id, favorSeller) {
-        return this.methods.mediatorSettlesChallenge(id, favorSeller)
+    async settle(id, favorSeller) {
+        console.log(await this.itemById(id), this.address)
+        return await this.methods.mediatorSettlesChallenge(id, favorSeller)
             .send({ from: this.address });
     }
 }
