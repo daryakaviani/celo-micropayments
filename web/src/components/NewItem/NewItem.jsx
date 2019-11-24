@@ -95,7 +95,7 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    <Address address={this.props.item.hasBuyer ? this.props.item["buyerAddress"] : 'None yet'} />
+                    {this.props.item.hasBuyer ? <Address address={this.props.item["buyerAddress"]} /> : 'None yet'}
                 </td>
                 <td>
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
