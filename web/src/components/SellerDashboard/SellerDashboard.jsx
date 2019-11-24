@@ -67,7 +67,7 @@ class SellerDashboard extends Component {
             </thead>
             <tbody>
               {this.props.sellingItems.map((item) => <NewItem sellerChallenge={
-                () => this.props.sellerChallenge(item.ID)
+                (challenge) => this.props.sellerChallenge(item.ID, challenge)
               } item={item} key={item.ID} type="selling" />)}
             </tbody>
           </table>
