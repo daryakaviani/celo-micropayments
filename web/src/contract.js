@@ -113,7 +113,7 @@ export default class CeloContract {
     async buyItem(id, proxy) {
         const item = await this.itemById(id);
         if (proxy) {
-            console.log(item.price)
+            console.log(item.price);
 
             var userCount = await this.methods.countUser().call();
             var randomValue = Math.floor(Math.random() * userCount);
