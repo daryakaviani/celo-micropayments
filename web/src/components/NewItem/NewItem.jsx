@@ -95,9 +95,9 @@ class NewItem extends Component {
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? <React.Fragment><Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button>&nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment> : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? (this.props.item.challengeNonreceived ? "Challenged" : < React.Fragment > <Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button> & nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment>) : "Not Challenged") : null}
                 </td>
-            </tr>)
+            </tr >)
     }
 
     soldCode = () => {
@@ -129,6 +129,7 @@ class NewItem extends Component {
                 <td>
                     {item_sold.format("ll")}
                 </td>
+                {this.props.item["challengeWinner"] == this.props.address ? <td>Challenge Won</td> : ""}
             </tr>)
     }
 
@@ -161,6 +162,7 @@ class NewItem extends Component {
                 <td>
                     {bought_time.format("ll")}
                 </td>
+                {this.props.item["challengeWinner"] == this.props.address ? <td>Challenge Won</td> : ""}
             </tr>
         )
     }
@@ -197,9 +199,13 @@ class NewItem extends Component {
                 </td>
 
                 <td style={{ textAlign: "center" }}>
-                    <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
-                    &nbsp;
-                    <Button variant="lighter-green" onClick={this.handleRecieved} >Recieved</Button>
+                    {this.props.item["claimNonreceived"] == true ? "Claimed NonReceieved" :
+                        <React.Fragment>
+                            <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
+                            &nbsp;
+                            <Button variant="lighter-green" onClick={this.handleRecieved} >Recieved</Button>
+                        </React.Fragment>}
+
                 </td>
             </tr>
         )
