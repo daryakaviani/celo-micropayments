@@ -22,6 +22,10 @@ class UserDashboard extends Component {
     axios.get('/user/' + this.contract.address).then(res => {
       this.setState({ currentName: res.data });
       console.log(this.state.currentName);
+    }).catch(e => {
+      this.setState({ error: 'Cannot connect to the MongoDB backend. '
+        + 'Did you run `node index.js` inside the `server` directory?'
+      });
     });
   }
 
@@ -81,8 +85,8 @@ class UserDashboard extends Component {
         </style>
 
         <br />
-        {this.state.error && <Container><pre><code>{this.state.error.toString()}</code></pre></Container>}
-        {!this.state.error && !this.state.loaded && <Container>Loading...</Container>}
+        {this.state.error && <Container><code>{this.state.error.toString()}</code></Container>}
+        {!this.state.error && !this.state.loaded && <Container><code>Loading...</code></Container>}
         {this.state.loaded &&
           <Container>
             <br />

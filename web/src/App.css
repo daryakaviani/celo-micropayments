@@ -2,7 +2,7 @@
 :root body {
   background: #303030;
 }
-:root pre code {
+:root code {
    color: #fff;
 }
 
