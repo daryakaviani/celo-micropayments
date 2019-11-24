@@ -3,6 +3,7 @@ import "./NewItem.css";
 import { Button } from "react-bootstrap"
 import axios from 'axios';
 var moment = require('moment');
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 /*
 ID: "1"
@@ -95,7 +96,7 @@ class NewItem extends Component {
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? (this.props.item.challengeNonreceived ? "Challenged" : < React.Fragment > <Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button> & nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment>) : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? (this.props.item.challengeNonreceived ? "Challenged" : < React.Fragment > <Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button> &nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment>) : "Not Challenged") : null}
                 </td>
             </tr >)
     }
@@ -129,7 +130,7 @@ class NewItem extends Component {
                 <td>
                     {item_sold.format("ll")}
                 </td>
-                {this.props.item["challengeWinner"] == this.props.address ? <td>Challenge Won</td> : ""}
+                {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <td>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /></td> : ""}
             </tr>)
     }
 
@@ -157,12 +158,12 @@ class NewItem extends Component {
                     {this.props.item["price"]}
                 </td>
                 <td>
-                    <Address address={this.props.item["buyerAddress"]} />
+                    <Address address={this.props.item["sellerAddress"]} />
                 </td>
                 <td>
                     {bought_time.format("ll")}
                 </td>
-                {this.props.item["challengeWinner"] == this.props.address ? <td>Challenge Won</td> : ""}
+                {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <td>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /></td> : ""}
             </tr>
         )
     }
@@ -199,7 +200,7 @@ class NewItem extends Component {
                 </td>
 
                 <td style={{ textAlign: "center" }}>
-                    {this.props.item["claimNonreceived"] == true ? "Claimed NonReceieved" :
+                    {this.props.item["claimNonreceived"] == true ? "Claimed non received" :
                         <React.Fragment>
                             <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
                             &nbsp;
