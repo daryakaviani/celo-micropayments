@@ -1,6 +1,13 @@
+/** Use :root to increase specificity to override bootstrap styles */
+:root body {
+  background: #303030;
+}
+:root pre code {
+   color: #fff;
+}
+
 .App {
   text-align: center;
-  background: #303030;
 }
 
 .App-logo {

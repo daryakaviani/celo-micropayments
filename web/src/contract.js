@@ -35,6 +35,9 @@ export default class CeloContract {
     async init(address) {
         this.web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
         this.address = address || await this.metamaskAddress();
+        if (!this.address) {
+            throw new Error('No account found. Are you signed into MetaMask?');
+        }
 
         this.contract = new this.web3.eth.Contract(CELO_ABI, CELO_ADDRESS);
         this.methods = this.contract.methods;
