@@ -57,7 +57,7 @@ class BuyItem extends Component {
                             <Form.Control type="text" placeholder="0" onChange={this.handleValueChange} />
                         </Form.Group>
                         <Form.Group controlId="proxy">
-                            <Form.Label style={{ color: "black" }}>Mediator</Form.Label>
+                            <Form.Label style={{ color: "white" }}>Mediator</Form.Label>
                             <Form.Control style={{ color: "black" }} as="select" onChange={this.handleProxyChange}>
                                 <option>With Mediator</option>
                                 <option>Without Mediator</option>

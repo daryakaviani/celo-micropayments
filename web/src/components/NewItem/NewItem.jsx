@@ -56,7 +56,12 @@ class NewItem extends Component {
 
     handleSellerChallenge = (event) => {
         event.preventDefault();
-        this.props.sellerChallenge().then(() => alert('submitted!'));
+        this.props.sellerChallenge(true).then(() => alert('challenged!'));
+    }
+
+    handleSellerAccept = (event) => {
+        event.preventDefault();
+        this.props.sellerChallenge(false).then(() => alert("accepted!"))
     }
 
     sellingCode = () => {
@@ -90,9 +95,8 @@ class NewItem extends Component {
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td>
-                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? "Challenged" : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? <React.Fragment><Button variant="darker-green" style={{ float: "left" }} onClick={this.handleSellerChallenge}>Challenge</Button> <Button variant="darker-green" style={{ float: "right" }} onClick={this.handleSellerAccept}>Accept</Button></React.Fragment> : "Not Challenged") : null}
                 </td>
-                {this.props.item.claimNonreceived ? <td><Button variant="success" onClick={this.handleSellerChallenge}>Challenge</Button></td> : null}
             </tr>)
     }
 
