@@ -76,11 +76,11 @@ export default class CeloContract {
 
         for (var i = 0; i < numItems; i++) {
             const item = await this.itemById(i);
-            if (item.sellerAddress === this.address && (item.received || item.sellerAcceptNonReceived || item.challengeWinner != ZERO_ADDRESS)) {
+            if (item.sellerAddress === this.address && (item.received || item.challengeWinner != ZERO_ADDRESS)) {
                 completedSales.push(item);
             }
             console.log(item)
-            if (item.buyerAddress === this.address && (item.received || item.sellerAcceptNonReceived || item.challengeWinner != ZERO_ADDRESS)) {
+            if (item.buyerAddress === this.address && (item.received || item.challengeWinner != ZERO_ADDRESS)) {
                 completedPurchases.push(item);
             }
             if (item.mediatorAddress === this.address && item.challengeNonreceived && item.challengeWinner == ZERO_ADDRESS) {

@@ -130,7 +130,13 @@ class NewItem extends Component {
                 <td>
                     {item_sold.format("ll")}
                 </td>
-                {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <td>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /></td> : ""}
+                <td>
+                    {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <React.Fragment>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /> </React.Fragment> : "Normal"}
+                </td>
+                <td>
+                    {this.props.item["challengeWinner"] == this.props.item["sellerAddress"] || this.props.item["challengeWinner"] == ZERO_ADDRESS ? <Button variant="darker-green">Redeem Amount</Button> : null}
+                </td>
+
             </tr>)
     }
 
