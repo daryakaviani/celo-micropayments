@@ -47,6 +47,7 @@ class BuyerDashboard extends Component {
                 <th>Amount</th>
                 <th>Seller</th>
                 <th>Bought Time</th>
+                <th>Challenge Type</th>
               </tr>
             </thead>
             <tbody>

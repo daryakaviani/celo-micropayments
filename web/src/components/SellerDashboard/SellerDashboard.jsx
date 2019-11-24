@@ -79,6 +79,8 @@ class SellerDashboard extends Component {
                 <th>Amount</th>
                 <th>Recipient</th>
                 <th>Bought Time</th>
+                <th>Challenge Type</th>
+                <th>Redeem if Sold</th>
               </tr>
             </thead>
             <tbody>
