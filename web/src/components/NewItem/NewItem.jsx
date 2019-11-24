@@ -65,6 +65,11 @@ class NewItem extends Component {
         this.props.sellerChallenge(false).then(() => alert("accepted!"))
     }
 
+    handleSellerRedeem = (e) => {
+        e.preventDefault();
+        this.props.sellerRedeem().then(alert("Money has been redeemed"));
+    }
+
     sellingCode = () => {
         var deadline = moment.unix(this.props.item["buyTime"]);
         deadline.add(30, "seconds");
@@ -134,7 +139,7 @@ class NewItem extends Component {
                     {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <React.Fragment>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /> </React.Fragment> : "Normal"}
                 </td>
                 <td>
-                    {this.props.item["challengeWinner"] == this.props.item["sellerAddress"] || this.props.item["challengeWinner"] == ZERO_ADDRESS ? <Button variant="darker-green">Redeem Amount</Button> : null}
+                    {this.props.item["challengeWinner"] == this.props.item["sellerAddress"] || this.props.item["challengeWinner"] == ZERO_ADDRESS ? <Button onClick={this.handleSellerRedeem} variant="darker-green">Redeem Amount</Button> : null}
                 </td>
 
             </tr>)

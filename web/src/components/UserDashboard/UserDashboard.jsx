@@ -23,8 +23,9 @@ class UserDashboard extends Component {
       this.setState({ currentName: res.data });
       console.log(this.state.currentName);
     }).catch(e => {
-      this.setState({ error: 'Cannot connect to the MongoDB backend. '
-        + 'Did you run `node index.js` inside the `server` directory?'
+      this.setState({
+        error: 'Cannot connect to the MongoDB backend. '
+          + 'Did you run `node index.js` inside the `server` directory?'
       });
     });
   }
@@ -126,7 +127,8 @@ class UserDashboard extends Component {
               makeItem={this.contract.makeItem}
               sellerChallenge={this.contract.sellerChallenge}
               sellingItems={this.state.currentInventory}
-              soldItems={this.state.completedSales}></SellerDashboard>
+              soldItems={this.state.completedSales}
+              redeem={this.contract.redeem}></SellerDashboard>
             <CardGroup>
               <BuyItem buyItem={this.contract.buyItem}></BuyItem>
               <Challenges

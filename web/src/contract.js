@@ -137,8 +137,14 @@ export default class CeloContract {
     }
 
     async settle(id, favorSeller) {
-        console.log(await this.itemById(id), this.address)
+        console.log(await this.itemById(id), this.address);
         return await this.methods.mediatorSettlesChallenge(id, favorSeller)
             .send({ from: this.address });
+    }
+
+    async redeem(id) {
+        const item = await this.itemById(id);
+        console.log(item);
+        return await this.methods.sellerRedeem(id).send({ from: this.address });
     }
 }
