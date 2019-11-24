@@ -57,13 +57,13 @@ export default class CeloContract {
     async pendingPurchases() {
         const buyingList = await this.buyingList();
         const items = await Promise.all(buyingList.map(this.itemById));
-        return items.filter(i => !i.received && !i.sellerAcceptNonReceived);
+        return items.filter(i => !i.received && !i.sellerAcceptNonReceived && i.challengeWinner == ZERO_ADDRESS);
     }
 
     async currentInventory() {
         const sellingList = await this.sellingList();
         const items = await Promise.all(sellingList.map(this.itemById));
-        return items.filter(i => !i.received && !i.sellerAcceptNonReceived);
+        return items.filter(i => !i.received && !i.sellerAcceptNonReceived && i.challengeWinner == ZERO_ADDRESS);
     }
 
     /** All important info in the contract. **/
@@ -76,14 +76,14 @@ export default class CeloContract {
 
         for (var i = 0; i < numItems; i++) {
             const item = await this.itemById(i);
-            if (item.sellerAddress === this.address && (item.received || item.sellerAcceptNonReceived)) {
+            if (item.sellerAddress === this.address && (item.received || item.sellerAcceptNonReceived || item.challengeWinner == this.address)) {
                 completedSales.push(item);
             }
             console.log(item)
-            if (item.buyerAddress === this.address && (item.received || item.sellerAcceptNonReceived)) {
+            if (item.buyerAddress === this.address && (item.received || item.sellerAcceptNonReceived || item.challengeWinner == this.address)) {
                 completedPurchases.push(item);
             }
-            if (item.mediatorAddress === this.address && item.challengeNonreceived) {
+            if (item.mediatorAddress === this.address && item.challengeNonreceived && item.challengeWinner == ZERO_ADDRESS) {
                 challenges.push(item);
             }
         }

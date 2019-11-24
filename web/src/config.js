@@ -1,4 +1,4 @@
-export const CELO_ADDRESS = "0x08edb8cf653C090a3eDa4415fB75B9B49ADaf358";
+export const CELO_ADDRESS = "0x823A9B9f31Ab5d33480592E6670c4fc12CADF760";
 export const CELO_ABI = [
     {
         "constant": false,
