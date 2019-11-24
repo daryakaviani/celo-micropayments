@@ -61,7 +61,7 @@ class NewItem extends Component {
 
     sellingCode = () => {
         var deadline = moment.unix(this.props.item["buyTime"]);
-        deadline.add(2, "weeks");
+        deadline.add(30, "seconds");
         return (
             <tr className="item">
                 <style type="text/css">
@@ -163,7 +163,7 @@ class NewItem extends Component {
 
     buyingCode = () => {
         var deadline = moment.unix(this.props.item["buyTime"]);
-        deadline.add(2, "weeks");
+        deadline.add(30, "seconds");
         return (
             <tr className="item">
                 <style type="text/css">
