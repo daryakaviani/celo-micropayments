@@ -80,7 +80,6 @@ export default class CeloContract {
             if (item.sellerAddress === this.address && (item.received || item.challengeWinner != ZERO_ADDRESS)) {
                 completedSales.push(item);
             }
-            console.log(item)
             if (item.buyerAddress === this.address && (item.received || item.challengeWinner != ZERO_ADDRESS)) {
                 completedPurchases.push(item);
             }
@@ -121,6 +120,9 @@ export default class CeloContract {
     /** Add an item to the items bought. */
     async buyItem(id, proxy) {
         const item = await this.itemById(id);
+        if (item.sellerAddress == this.address) {
+            throw new Error("You can't buy your own item!")
+        }
         if (proxy) {
             console.log(item.price);
 

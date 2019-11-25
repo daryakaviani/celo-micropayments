@@ -18,6 +18,8 @@ class BuyItem extends Component {
 
         this.props.buyItem(Number(value), proxy === "With Mediator").then((receipt) => {
             console.log(receipt);
+        }).catch((e) => {
+          alert(e);
         });
     }
 
