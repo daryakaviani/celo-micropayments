@@ -21,6 +21,7 @@ export default class CeloContract {
         return ((...args) => {
             return fn.bind(this)(...args).then(() => {
                 // To receive events, set this.listener to a function
+                console.log('listener', this.listener)
                 if (this.listener) this.listener()
             })
         })
@@ -35,13 +36,13 @@ export default class CeloContract {
     /** Initialize the contract */
     async init(address) {
         this.web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-        this.address = address || await this.metamaskAddress();
-        if (!this.address) {
-            throw new Error('No account found. Are you signed into MetaMask?');
-        }
 
         this.contract = new this.web3.eth.Contract(CELO_ABI, CELO_ADDRESS);
         this.methods = this.contract.methods;
+
+        this.web3.currentProvider.publicConfigStore.on('update', () => {
+            if (this.listener) this.listener()
+        });
     }
 
     buyingList() { return this.methods.getBuyingItems(this.address).call(); }
@@ -69,6 +70,11 @@ export default class CeloContract {
 
     /** All important info in the contract. **/
     async state() {
+        this.address = await this.metamaskAddress();
+        if (!this.address) {
+            throw new Error('No account found. Are you signed into MetaMask?');
+        }
+
         const numItems = await this.methods.nextItemID().call();
 
         const completedSales = [];
