@@ -15,7 +15,6 @@ class UserDashboard extends Component {
 
   async loadData() {
     // Getting the buyinglist and the selling list
-    await this.contract.init();
     this.setState(await this.contract.state());
     console.log(this.state);
     this.setState({ loaded: true })
@@ -40,14 +39,28 @@ class UserDashboard extends Component {
       updatingName: ""
     };
     this.contract.listener = () => {
-      this.loadData()
+      this.nicelyLoadData()
     }
   }
 
-  componentDidMount() {
+  nicelyLoadData() {
+    this.setState({ error: null })
     this.loadData().catch(e => {
       console.error(e);
       this.setState({ error: e });
+    });
+  }
+
+  componentDidMount() {
+    this.contract.init().then(() => {
+      this.nicelyLoadData()
+      // Every 10 seconds automatically refresh
+      setInterval(() => {
+        if (!this.state.error) this.nicelyLoadData()
+      }, 10 * 1000)
+    }).catch(e => {
+      console.error(e);
+      this.setState({ error: e});
     });
   }
 
