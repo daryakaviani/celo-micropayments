@@ -15,7 +15,8 @@ class SellerDashboard extends Component {
   handleMakeItem = (event) => {
     event.preventDefault();
     var priceNumber = parseInt(this.state.value);
-    this.props.makeItem({ price: priceNumber }).then((receipt) => { console.log(receipt) });
+    var eth_value = (priceNumber * 0.0072 * (10 ** 18)).toString();
+    this.props.makeItem({ price: eth_value }).then((receipt) => { console.log(receipt) });
   }
 
   handleMakeValueChange = (event) => {

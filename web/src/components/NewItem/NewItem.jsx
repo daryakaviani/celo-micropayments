@@ -92,7 +92,7 @@ class NewItem extends Component {
                     {this.props.item["ID"]}
                 </td>
                 <td>
-                    {this.props.item["price"]}
+                    {this.props.item["price"] / 0.0072 / (10 ** 18)}
                 </td>
                 <td>
                     {this.props.item.hasBuyer ? <Address address={this.props.item["buyerAddress"]} /> : 'None yet'}
@@ -127,7 +127,7 @@ class NewItem extends Component {
                     {this.props.item["ID"]}
                 </td>
                 <td>
-                    {this.props.item["price"]}
+                    {this.props.item["price"] / 0.0072 / (10 ** 18)}
                 </td>
                 <td>
                     <Address address={this.props.item["buyerAddress"]} />
@@ -166,7 +166,7 @@ class NewItem extends Component {
                     {this.props.item["ID"]}
                 </td>
                 <td>
-                    {this.props.item["price"]}
+                    {this.props.item["price"] / 0.0072 / (10 ** 18)}
                 </td>
                 <td>
                     <Address address={this.props.item["sellerAddress"]} />
@@ -201,7 +201,7 @@ class NewItem extends Component {
                     {this.props.item["ID"]}
                 </td>
                 <td>
-                    {this.props.item["price"]}
+                    {this.props.item["price"] / 0.0072 / (10 ** 18)}
                 </td>
                 <td>
                     <Address address={this.props.item["sellerAddress"]} />
