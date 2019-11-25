@@ -67,7 +67,7 @@ class NewItem extends Component {
 
     handleSellerRedeem = (e) => {
         e.preventDefault();
-        this.props.sellerRedeem().then(alert("Money has been redeemed"));
+        this.props.sellerRedeem(this.props.item["ID"]).then(alert("Money has been redeemed"));
     }
 
     sellingCode = () => {

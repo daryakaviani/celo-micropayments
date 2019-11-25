@@ -13,6 +13,7 @@ export default class CeloContract {
         this.sellerChallenge = this.wrap(this.sellerChallenge)
         this.buyItem = this.wrap(this.buyItem)
         this.settle = this.wrap(this.settle)
+        this.redeem = this.wrap(this.redeem)
     }
 
     /** Binds the given function to the class and emits events. */
@@ -143,8 +144,7 @@ export default class CeloContract {
     }
 
     async redeem(id) {
-        const item = await this.itemById(id);
-        console.log(item);
+        console.log(await this.itemById(id), this.address);
         return await this.methods.sellerRedeem(id).send({ from: this.address });
     }
 }

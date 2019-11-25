@@ -86,7 +86,7 @@ class SellerDashboard extends Component {
             <tbody>
               {this.props.soldItems.map((item) => <NewItem item={item}
                 key={item.ID}
-                sellerRedeem={() => this.props.redeem(item.ID)}
+                sellerRedeem={this.props.redeem}
                 type="sold" />)}
             </tbody>
           </table>
