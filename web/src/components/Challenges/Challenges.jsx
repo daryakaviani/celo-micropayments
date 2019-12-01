@@ -8,7 +8,7 @@ class Challenges extends Component {
   }
 
   settle(id, favorSeller) {
-    this.props.settle(id, favorSeller).then(function (receipt) { console.log(receipt) });
+    return this.props.settle(id, favorSeller).then(function (receipt) { console.log(receipt) });
   }
 
   handleSettler(id, favorSeller) {
