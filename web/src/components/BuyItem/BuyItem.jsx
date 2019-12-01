@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
+import SpinnerButton from "../SpinnerButton/SpinnerButton";
 import "./BuyItem.css";
 
 class BuyItem extends Component {
@@ -7,7 +8,7 @@ class BuyItem extends Component {
         super(props);
         this.state = {
             value: "",
-            proxy: "With Mediator"
+            proxy: "With Mediator",
         };
     }
 
@@ -16,11 +17,9 @@ class BuyItem extends Component {
         var value = this.state.value;
         var proxy = this.state.proxy;
 
-        this.props.buyItem(Number(value), proxy === "With Mediator").then((receipt) => {
-            console.log(receipt);
-        }).catch((e) => {
-          alert(e);
-        });
+        return this.props.buyItem(Number(value), proxy === "With Mediator")
+                   .then((receipt) => console.log(receipt))
+                   .catch((e) => alert(e.toString()));
     }
 
     handleValueChange = (event) => {
@@ -65,9 +64,9 @@ class BuyItem extends Component {
                                 <option>Without Mediator</option>
                             </Form.Control>
                         </Form.Group>
-                        <Button variant="darker-green" type="submit" onClick={this.handleBuyItem}>
+                        <SpinnerButton variant="darker-green" type="submit" onClick={this.handleBuyItem}>
                             Submit
-                    </Button>
+                        </SpinnerButton>
                     </Form>
                 </Card.Body>
             </Card>

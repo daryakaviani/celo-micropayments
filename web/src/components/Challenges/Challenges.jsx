@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Table, Card } from "react-bootstrap";
+import { Table, Card } from "react-bootstrap";
+import SpinnerButton from "../SpinnerButton/SpinnerButton";
 
 class Challenges extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class Challenges extends Component {
   handleSettler(id, favorSeller) {
     return event => {
       event.preventDefault();
-      this.settle(id, favorSeller);
+      return this.settle(id, favorSeller);
     }
   }
 
@@ -53,8 +54,8 @@ class Challenges extends Component {
               {this.props.challenges.map((item) => (
                 <tr>
                   <td>{item["ID"]}</td>
-                  <td><Button variant="darker-green" onClick={this.handleSettler(item.ID, false)}>Buyer</Button> &nbsp;
-                  <Button variant="darker-green" onClick={this.handleSettler(item.ID, true)}>Seller</Button></td>
+                  <td><SpinnerButton variant="darker-green" onClick={this.handleSettler(item.ID, false)}>Buyer</SpinnerButton> &nbsp;
+                  <SpinnerButton variant="darker-green" onClick={this.handleSettler(item.ID, true)}>Seller</SpinnerButton></td>
                 </tr>
               ))}
             </tbody>

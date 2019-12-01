@@ -32,6 +32,7 @@ class UserDashboard extends Component {
   constructor(props) {
     super(props);
     this.contract = new CeloContract();
+    window.contract = this.contract;
     this.state = {
       loaded: false,
       show: false,

@@ -1,7 +1,8 @@
 
 
 import React, { Component } from "react";
-import { Button, Card, Form } from "react-bootstrap";
+import { Card, Form } from "react-bootstrap";
+import SpinnerButton from "../SpinnerButton/SpinnerButton";
 import NewItem from "../NewItem/NewItem";
 
 class SellerDashboard extends Component {
@@ -16,7 +17,9 @@ class SellerDashboard extends Component {
     event.preventDefault();
     var priceNumber = parseInt(this.state.value);
     var eth_value = (priceNumber * 0.0072 * (10 ** 18)).toString();
-    this.props.makeItem({ price: eth_value }).then((receipt) => { console.log(receipt) });
+    return this.props.makeItem({ price: eth_value }).then((receipt) => {
+      console.log(receipt)
+    });
   }
 
   handleMakeValueChange = (event) => {
@@ -50,9 +53,9 @@ class SellerDashboard extends Component {
               <Form.Label style={{ color: "white" }}>Item Price</Form.Label>
               <Form.Control type="text" placeholder="" onChange={this.handleMakeValueChange} />
             </Form.Group>
-            <Button variant="darker-green" type="submit" onClick={this.handleMakeItem}>
-              Submit
-                </Button>
+            <SpinnerButton variant="darker-green" type="submit" onClick={this.handleMakeItem}>
+                Submit
+            </SpinnerButton>
           </Form>
           <hr></hr>
           <h3>Current Inventory</h3>

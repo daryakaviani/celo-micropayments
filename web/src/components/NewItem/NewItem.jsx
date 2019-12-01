@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import "./NewItem.css";
-import { Button } from "react-bootstrap"
 import axios from 'axios';
+import SpinnerButton from "../SpinnerButton/SpinnerButton";
 var moment = require('moment');
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
@@ -43,31 +43,32 @@ class Address extends Component {
 class NewItem extends Component {
     constructor(props) {
         super(props);
+        this.state = {};
     }
 
     handleClaimNonreceived = (event) => {
         event.preventDefault();
-        this.props.setClaimReceivedStatus(false).then(() => alert('submitted!'));
+        return this.props.setClaimReceivedStatus(false).then(() => alert('submitted!'));
     }
 
     handleRecieved = (event) => {
         event.preventDefault();
-        this.props.setClaimReceivedStatus(true).then(() => alert('submitted!'));
+        return this.props.setClaimReceivedStatus(true).then(() => alert('submitted!'));
     }
 
     handleSellerChallenge = (event) => {
         event.preventDefault();
-        this.props.sellerChallenge(true).then(() => alert('challenged!'));
+        return this.props.sellerChallenge(true).then(() => alert('challenged!'));
     }
 
     handleSellerAccept = (event) => {
         event.preventDefault();
-        this.props.sellerChallenge(false).then(() => alert("accepted!"))
+        return this.props.sellerChallenge(false).then(() => alert("accepted!"))
     }
 
     handleSellerRedeem = (e) => {
         e.preventDefault();
-        this.props.sellerRedeem(this.props.item["ID"]).then(alert("Money has been redeemed"));
+        return this.props.sellerRedeem(this.props.item["ID"]).then(alert("Money has been redeemed"));
     }
 
     sellingCode = () => {
@@ -101,7 +102,14 @@ class NewItem extends Component {
                     {this.props.item.hasBuyer ? deadline.format("ll") : null}
                 </td>
                 <td style={{ textAlign: "center" }}>
-                    {this.props.item.hasBuyer ? (this.props.item.claimNonreceived ? (this.props.item.challengeNonreceived ? "Challenged" : < React.Fragment > <Button variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</Button> &nbsp;<Button variant="darker-green" onClick={this.handleSellerAccept}>Accept</Button></React.Fragment>) : "Not Challenged") : null}
+                    {this.props.item.hasBuyer ?
+                     (this.props.item.claimNonreceived ?
+                      (this.props.item.challengeNonreceived ? "Challenged" :
+                       <>
+                          <SpinnerButton variant="darker-green" onClick={this.handleSellerChallenge}>Challenge</SpinnerButton> &nbsp;
+                          <SpinnerButton variant="darker-green" onClick={this.handleSellerAccept}>Accept</SpinnerButton>
+                       </>
+                      ) : "Not Challenged") : null}
                 </td>
             </tr >)
     }
@@ -139,7 +147,7 @@ class NewItem extends Component {
                     {this.props.item["challengeWinner"] != ZERO_ADDRESS ? <React.Fragment>Challenge related, Winner: <Address address={this.props.item["challengeWinner"]} /> </React.Fragment> : "Normal"}
                 </td>
                 <td>
-                    {this.props.item["challengeWinner"] == this.props.item["sellerAddress"] || this.props.item["challengeWinner"] == ZERO_ADDRESS ? <Button onClick={this.handleSellerRedeem} variant="darker-green">Redeem Amount</Button> : null}
+                    {this.props.item["challengeWinner"] == this.props.item["sellerAddress"] || this.props.item["challengeWinner"] == ZERO_ADDRESS ? <SpinnerButton onClick={this.handleSellerRedeem} variant="darker-green">Redeem Amount</SpinnerButton> : null}
                 </td>
 
             </tr>)
@@ -213,9 +221,9 @@ class NewItem extends Component {
                 <td style={{ textAlign: "center" }}>
                     {this.props.item["claimNonreceived"] == true ? "Claimed non received" :
                         <React.Fragment>
-                            <Button variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</Button>
+                            <SpinnerButton variant="darker-green" onClick={this.handleClaimNonreceived} >Claim Nonrecieved</SpinnerButton>
                             &nbsp;
-                            <Button variant="lighter-green" onClick={this.handleRecieved} >Recieved</Button>
+                            <SpinnerButton variant="lighter-green" onClick={this.handleRecieved} >Recieved</SpinnerButton>
                         </React.Fragment>}
 
                 </td>
